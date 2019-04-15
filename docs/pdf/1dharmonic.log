@@ -1,8 +1,8 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2019.2.25)  15 APR 2019 13:02
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2019.2.25)  15 APR 2019 13:11
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**1dharmonic.tex -aux-directory ./tmpdw8Z5l -include-directory /Users/abradley/
+**1dharmonic.tex -aux-directory ./tmph6SK1S -include-directory /Users/abradley/
 Dropbox/Julia/FGPEexamples.jl/src/../docs/pdf
 (./1dharmonic.tex
 LaTeX2e <2018-04-01> patch level 2
@@ -911,14 +911,14 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 [1
 
 ] [2]
-File: /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmpzvsTXy/1dharmon
+File: /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmpgWqItt/1dharmon
 ic_11_1.pdf Graphic file (type pdf)
-<use /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmpzvsTXy/1dharmoni
+<use /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmpgWqItt/1dharmoni
 c_11_1.pdf>
  [3]
-File: /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmpzvsTXy/1dharmon
+File: /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmpgWqItt/1dharmon
 ic_14_1.pdf Graphic file (type pdf)
-<use /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmpzvsTXy/1dharmoni
+<use /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmpgWqItt/1dharmoni
 c_14_1.pdf>
 
 Overfull \hbox (1.68855pt too wide) in paragraph at lines 341--342
@@ -927,9 +927,9 @@ Overfull \hbox (1.68855pt too wide) in paragraph at lines 341--342
  []
 
 [4] [5]
-File: /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmpzvsTXy/1dharmon
+File: /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmpgWqItt/1dharmon
 ic_18_1.pdf Graphic file (type pdf)
-<use /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmpzvsTXy/1dharmoni
+<use /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmpgWqItt/1dharmoni
 c_18_1.pdf>
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 410.
  [6]

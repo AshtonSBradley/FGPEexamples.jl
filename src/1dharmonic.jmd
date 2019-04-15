@@ -185,7 +185,7 @@ showpsi(x,ψf)
 anim = @animate for i in 1:length(t)-4
     ψ = xspace(sols[i],simSoliton)
     y = g*abs2.(ψ)
-    p = plot(x,y,fill=(0,0.2))
+    p = plot(x,y,fill=(0,0.2),size=(500,200))
     xlims!(-10,10); ylims!(0,1.3*μ)
     title!(L"\textrm{local}\; \mu(x)")
     xlabel!(L"x/a_x"); ylabel!(L"\mu(x)/\hbar\omega_x")
@@ -195,11 +195,11 @@ gif(anim,animpath,fps=30)
 ```
 The result is visible in the media folder.
 
-Here we just plot the final state:
+Here we simply plot the final state:
 ```julia
 ψ = xspace(sols[end],simSoliton)
 y = g*abs2.(ψ)
-p=plot(x,y,fill=(0,0.2))
+p=plot(x,y,fill=(0,0.2),size=(500,200))
 xlims!(-10,10); ylims!(0,1.3*μ)
 title!(L"\textrm{local}\; \mu(x)")
 xlabel!(L"x/a_x"); ylabel!(L"\mu(x)/\hbar\omega_x")
