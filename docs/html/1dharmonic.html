@@ -795,7 +795,7 @@ V &#40;generic function with 3 methods&#41;
 
 
 <pre class="output">
-0.957242 seconds &#40;1.82 M allocations: 82.988 MiB, 3.81&#37; gc time&#41;
+0.970575 seconds &#40;1.82 M allocations: 82.968 MiB, 2.77&#37; gc time&#41;
 </pre>
 
 
@@ -908,12 +908,13 @@ V &#40;generic function with 3 methods&#41;
 
 
 <pre class="output">
-5.201213 seconds &#40;320 allocations: 1.757 MiB&#41;
+5.397952 seconds &#40;320 allocations: 1.757 MiB&#41;
 </pre>
 
 
 <h2>View the solution using Plots</h2>
 <p>Plots allows easy creation of an animated gif, as in the runnable example code below.</p>
+
 
 
 <pre class='hljl'>
@@ -925,22 +926,17 @@ V &#40;generic function with 3 methods&#41;
     </span><span class='hljl-n'>ψ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>xspace</span><span class='hljl-p'>(</span><span class='hljl-n'>sols</span><span class='hljl-p'>[</span><span class='hljl-n'>i</span><span class='hljl-p'>],</span><span class='hljl-n'>simSoliton</span><span class='hljl-p'>)</span><span class='hljl-t'>
     </span><span class='hljl-n'>y</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>g</span><span class='hljl-oB'>*</span><span class='hljl-n'>abs2</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>ψ</span><span class='hljl-p'>)</span><span class='hljl-t'>
     </span><span class='hljl-n'>p</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>plot</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>,</span><span class='hljl-n'>y</span><span class='hljl-p'>,</span><span class='hljl-n'>fill</span><span class='hljl-oB'>=</span><span class='hljl-p'>(</span><span class='hljl-ni'>0</span><span class='hljl-p'>,</span><span class='hljl-nfB'>0.2</span><span class='hljl-p'>))</span><span class='hljl-t'>
-    </span><span class='hljl-cs'># xlims!(-10,10); ylims!(0,1.3*μ)</span><span class='hljl-t'>
-    </span><span class='hljl-cs'># title!(L&quot;\textrm{local}\; \mu(x)&quot;)</span><span class='hljl-t'>
-    </span><span class='hljl-cs'># xlabel!(L&quot;x/a_x&quot;); ylabel!(L&quot;\mu(x)/\hbar\omega_x&quot;)</span><span class='hljl-t'>
+    </span><span class='hljl-nf'>xlims!</span><span class='hljl-p'>(</span><span class='hljl-oB'>-</span><span class='hljl-ni'>10</span><span class='hljl-p'>,</span><span class='hljl-ni'>10</span><span class='hljl-p'>);</span><span class='hljl-t'> </span><span class='hljl-nf'>ylims!</span><span class='hljl-p'>(</span><span class='hljl-ni'>0</span><span class='hljl-p'>,</span><span class='hljl-nfB'>1.3</span><span class='hljl-oB'>*</span><span class='hljl-n'>μ</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-nf'>title!</span><span class='hljl-p'>(</span><span class='hljl-so'>L&quot;\textrm{local}\; \mu(x)&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-nf'>xlabel!</span><span class='hljl-p'>(</span><span class='hljl-so'>L&quot;x/a_x&quot;</span><span class='hljl-p'>);</span><span class='hljl-t'> </span><span class='hljl-nf'>ylabel!</span><span class='hljl-p'>(</span><span class='hljl-so'>L&quot;\mu(x)/\hbar\omega_x&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-k'>end</span><span class='hljl-t'>
 </span><span class='hljl-n'>animpath</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>joinpath</span><span class='hljl-p'>(</span><span class='hljl-nd'>@__DIR__</span><span class='hljl-p'>,</span><span class='hljl-s'>&quot;media/soliton.gif&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
-</span><span class='hljl-nf'>gif</span><span class='hljl-p'>(</span><span class='hljl-n'>anim</span><span class='hljl-p'>,</span><span class='hljl-n'>animpath</span><span class='hljl-p'>,</span><span class='hljl-n'>fps</span><span class='hljl-oB'>=</span><span class='hljl-ni'>30</span><span class='hljl-p'>)</span><span class='hljl-t'>
-</span><span class='hljl-nf'>plot</span><span class='hljl-p'>(</span><span class='hljl-n'>anim</span><span class='hljl-p'>)</span>
+</span><span class='hljl-nf'>gif</span><span class='hljl-p'>(</span><span class='hljl-n'>anim</span><span class='hljl-p'>,</span><span class='hljl-n'>animpath</span><span class='hljl-p'>,</span><span class='hljl-n'>fps</span><span class='hljl-oB'>=</span><span class='hljl-ni'>30</span><span class='hljl-p'>)</span>
 </pre>
 
 
-<pre class="julia-error">
-ERROR: No user recipe defined for Plots.Animation
-</pre>
-
-
-<p>Here we just plot the final state</p>
+<p>The result is visible in the media folder.</p>
+<p>Here we just plot the final state:</p>
 
 
 <pre class='hljl'>

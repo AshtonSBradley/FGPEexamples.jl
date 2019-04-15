@@ -193,8 +193,9 @@ end
 animpath = joinpath(@__DIR__,"media/soliton.gif")
 gif(anim,animpath,fps=30)
 ```
+The result is visible in the media folder.
 
-Here we just plot the final state
+Here we just plot the final state:
 ```julia
 ψ = xspace(sols[end],simSoliton)
 y = g*abs2.(ψ)
