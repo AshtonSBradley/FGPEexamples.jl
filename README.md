@@ -1,5 +1,5 @@
 # FGPEexamples.jl 
-Simple examples to start using FourierGPE
+Simple examples of using the [FourierGPE](https://github.com/AshtonSBradley/FourierGPE.jl) library for solving the Gross-Piteavskii equation in julia.
 
 ## Dark Soliton
 
