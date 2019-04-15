@@ -3,7 +3,7 @@ Simple examples of using the [FourierGPE](https://github.com/AshtonSBradley/Four
 
 ## Dark Soliton
 
-A dark soliton solution provides an example of a non-trivial nonlinear steady state solution of the Gross-Piteavskii equation. 
+A dark soliton is a non-trivial solution of the Gross-Piteavskii equation involving a localized density dip, and associated phase jump. 
 For replusive interactions the soliton will be in general gray, with a velocity determined by the depth; When the depth drops to zero, the velocity vanishes. 
 
 If we phase and density imprint a dark soliton onto a BEC in a harmonic trap, the soliton position undergoes simple harmonic motion.
