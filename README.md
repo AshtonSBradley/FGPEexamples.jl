@@ -3,6 +3,11 @@ Simple examples to start using FourierGPE
 
 ## Dark Soliton
 
+A dark soliton solution provides an example of a non-trivial nonlinear steady state solution of the Gross-Piteavskii equation. 
+For replusive interactions the soliton will be in general gray, with a velocity determined by the depth 
+
+$$ v = \frac{\xi}{\sqrt{1-v^2/c^2} $$
+
 [1d harmonic potential: imprinting a dark soliton](https://ashtonsbradley.github.io/FGPEexamples.jl/html/1dharmonic.html)
 
 <img src="/media/soliton.gif" width="500" height="200"> 
@@ -16,6 +21,6 @@ Here a 3D quench from random initial conditions exhibits proliferation of vortic
 
 ## Quench in a 3D harmonic trap
 
-More experimentally relevant, a quench in a harmonic trap in 3D nucleates a vortex that eventually decays to the superfluid boundary
+More experimentally relevant, a quench in a harmonic trap in 3D nucleates a quantum vortex that eventually decays by migrating to the outer superfluid boundary. Physically, the dissipation is modelling coupling to a thermal cloud at rest in the laboratory frame.
 
 <img src="/media/3dtrap.gif" width="600" height="350">
