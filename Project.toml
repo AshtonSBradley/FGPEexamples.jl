@@ -1,0 +1,10 @@
+name = "FGPEexamples"
+uuid = "6c09c9bc-5f11-11e9-20cd-4713a023ac65"
+authors = ["Ashton Bradley <ashton.bradley@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+FourierGPE = "f013a474-557c-11e9-3596-438edcad9d97"
+IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
+Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+Weave = "44d3d7a6-8a23-5bf8-98c5-b353f8df5ec9"

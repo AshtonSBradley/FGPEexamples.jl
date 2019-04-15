@@ -1,2 +1,4 @@
 # FGPEexamples.jl
-simple examples to start using FourierGPE
+Simple examples to start using FourierGPE
+
+[1d harmonic potential: imprinting a dark soliton]()
