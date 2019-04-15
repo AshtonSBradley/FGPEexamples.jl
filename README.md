@@ -4,9 +4,9 @@ Simple examples to start using FourierGPE
 ## Dark Soliton
 
 A dark soliton solution provides an example of a non-trivial nonlinear steady state solution of the Gross-Piteavskii equation. 
-For replusive interactions the soliton will be in general gray, with a velocity determined by the depth 
+For replusive interactions the soliton will be in general gray, with a velocity determined by the depth; When the depth drops to zero, the velocity vanishes. 
 
-$$ v = \frac{\xi}{\sqrt{1-v^2/c^2} $$
+If we phase and density imprint a dark soliton onto a BEC in a harmonic trap, the soliton position undergoes simple harmonic motion.
 
 [1d harmonic potential: imprinting a dark soliton](https://ashtonsbradley.github.io/FGPEexamples.jl/html/1dharmonic.html)
 
