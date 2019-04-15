@@ -5,4 +5,4 @@ Simple examples to start using FourierGPE
 
 <img align="left" src="/media/soliton.gif" width="500" height="200">
 
-<img align="left" src="/media/3dquenchiso.gif width="700" height="700">
+<img align="left" src="/media/3dquenchiso.gif" width="700" height="700">
