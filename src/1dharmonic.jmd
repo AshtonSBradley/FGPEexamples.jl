@@ -4,14 +4,21 @@ author: Ashton Bradley
 ---
 
 # Introduction
-In this simple example we find a ground state of the Gross-Pitaevskii equation
+In this simple example we start by finding the ground state of the Gross-Pitaevskii equation
 in a harmonic trap.
 
-The mean field order parameter evolves according to
+The mean field order parameter evolves according to the GP-equation
 $$
 i\hbar\frac{\partial \psi(x,t)}{\partial t}=\left(-\frac{\hbar^2\partial_x^2}{2m}+V(x,t)+g|\psi(x,t)|^2\right)\psi(x,t)
 $$
+with potential $V(x,t)=m\omega_x^2 x^2/2$, and posititive interaction strength $g>0$.
 
+The equation of motion solved numerically is
+$$
+i\frac{\partial \psi(x,t)}{\partial t}=\left(-\frac{\partial_x^2}{2}+V(x,t)+g|\psi(x,t)|^2\right)\psi(x,t)
+$$
+raising the question of units. We work in trap units, taking length in units of $a_x=\sqrt{\hbar/m\omega_x}$ and time in
+units of $1/\omega_x$.
 # Loading the package
 First, we load some useful packages.
 ```julia
