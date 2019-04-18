@@ -1,14 +1,22 @@
 # FGPEexamples.jl 
 Simple examples of using the [FourierGPE](https://github.com/AshtonSBradley/FourierGPE.jl) library for solving the Gross-Piteavskii equation in julia.
 
+## Bright soliton
+
+The bright soliton is an eigenstate of the GPE with attractive interactions. 
+
+The [bright soliton example](https://ashtonsbradley.github.io/FGPEexamples.jl/html/1dbrightsoliton.html) thus provides a simple test of periodicity for a Fourier method, and that the dispersion and interactions balance correctly. 
+
+<img src="/media/brightsoliton.gif" width="600"> 
+
 ## Dark Soliton
 
 A dark soliton is a non-trivial solution of the Gross-Piteavskii equation involving a localized density dip, and associated phase jump. 
-For replusive interactions the soliton will be in general gray, with a velocity determined by the depth; When the depth drops to zero, the velocity vanishes. 
+A moving dark soliton has depth related to its velocity. When the depth drops to zero, the velocity vanishes. 
 
 If we phase and density imprint a dark soliton onto a BEC in a harmonic trap, the soliton position undergoes simple harmonic motion.
 
-[1d harmonic potential: imprinting a dark soliton](https://ashtonsbradley.github.io/FGPEexamples.jl/html/1dharmonic.html)
+In the [dark soliton example](https://ashtonsbradley.github.io/FGPEexamples.jl/html/1dharmonic.html) we find a ground state of a harmonic trap and the imprint a dark soliton in the trap center, observing simple harmonic motion:
 
 <img src="/media/soliton.gif" width="500" height="200"> 
 
