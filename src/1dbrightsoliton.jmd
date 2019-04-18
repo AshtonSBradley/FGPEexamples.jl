@@ -1,0 +1,98 @@
+---
+title: Bright soliton
+author: Ashton Bradley
+---
+
+# Introduction
+The bright soliton provides a good test of the balance between kinetic dispersion and
+the attractive nonlinearity. It also tests the periodicity of the fft method.
+```julia
+using Plots, LaTeXStrings, Pkg, Revise
+gr(legend=false,titlefontsize=12,size=(500,300),colorbar=false)
+using FourierGPE
+```
+
+# Potential function
+```julia
+import FourierGPE.V
+V(x,t) = zero(x) |> complex
+```
+## Units
+We work in units of ...
+Let's add a convenient plot
+```julia
+function showpsi(x,ψ)
+    p1 = plot(x,abs2.(ψ))
+    xlabel!(L"x/a_x");ylabel!(L"|\psi|^2")
+    p2 = plot(x,angle.(ψ))
+    xlabel!(L"x/a_x");ylabel!(L"\textrm{phase}(\psi)")
+    p = plot(p1,p2,layout=(2,1),size=(600,400))
+    return p
+end
+```
+## User parameters
+We initialize a struct to hold extra user parameters. At the lest, we should
+initialize it as a placeholder containing one variable.
+```julia
+@with_kw mutable struct Params <: UserParams @deftype Float64
+    # parameters (at least a placeholder):
+    κ = 0.1
+end
+par = Params()
+```
+
+## Simulation parameters
+```julia
+L = (60.0,)
+N = (512,)
+μ = 25.0
+g = -0.01
+γ = 0.0
+Ns = 200
+ξs = 2/abs(g)/Ns
+us = 20
+tf = 1π |> Float64
+Nt = 150
+t = LinRange(0.,tf,Nt);
+```
+# Initialize simulation
+Create the `sim` struct holding all parameters.
+```julia
+sim = Sim(L,N,par)
+@pack! sim = μ,g,γ,t,tf,Nt
+@unpack_Sim sim
+```
+## Initial soliton
+The bright soliton wavefunction is
+$$
+\psi_s(x)= \sqrt{\frac{N}{2\xi}}\textrm{sech}(x/\xi)e^{iux}
+$$
+We initialzie this as
+
+```julia
+X,K = makearrays(L,N)
+x = X[1]
+ψs(x) = sqrt(Ns/2ξs)*sech(x/ξs)*exp(im*us*x)
+ψi = ψs.(x)
+ϕi = kspace(ψi,sim)
+@pack! sim = ϕi;
+```
+## Evolve in k space
+Now we have everything we need to evolve in k-space
+```julia
+sol = runsim(sim);
+```
+## Plot the solution
+```julia
+showpsi(x,xspace(sol[end],sim))
+```
+or we can make an animation, found in the media folder.
+```julia;eval=false
+anim = @animate for i=1:Nt-8
+    ψ = xspace(sol[i],sim)
+    y=abs2.(ψ)
+    plot(x,y,fill=(0, 0.2),size=(600,150),legend=false,grid=false,xticks=false,yticks=false,axis=false)
+end
+
+gif(anim, "./media/brightsoliton.gif", fps = 25)
+```

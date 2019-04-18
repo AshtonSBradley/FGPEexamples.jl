@@ -2,9 +2,9 @@ This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**1dharmonic.tex -aux-directory ./tmpKpt3cL -include-directory /Users/abradley/
-Dropbox/Julia/FGPEexamples.jl/src/../docs/pdf
-(./1dharmonic.tex
+**1dbrightsoliton.tex -aux-directory ./tmpJS59Ku -include-directory /Users/abra
+dley/Dropbox/Julia/FGPEexamples.jl/src/../docs/pdf
+(./1dbrightsoliton.tex
 LaTeX2e <2018-04-01> patch level 2
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/article.cls
@@ -723,8 +723,8 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 )
-(./1dharmonic.aux)
-\openout1 = `1dharmonic.aux'.
+(./1dbrightsoliton.aux)
+\openout1 = `1dbrightsoliton.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 124.
 LaTeX Font Info:    ... okay on input line 124.
@@ -747,7 +747,8 @@ LaTeX Font Info:    ... okay on input line 124.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 124.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 124.
 
- (/usr/local/texlive/2018/texmf-dist/tex/latex/base/ts1cmr.fd
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 124.
@@ -817,9 +818,9 @@ LaTeX Info: Redefining \ref on input line 124.
 LaTeX Info: Redefining \pageref on input line 124.
 LaTeX Info: Redefining \nameref on input line 124.
 
-(./1dharmonic.out) (./1dharmonic.out)
+(./1dbrightsoliton.out) (./1dbrightsoliton.out)
 \@outlinefile=\write3
-\openout3 = `1dharmonic.out'.
+\openout3 = `1dbrightsoliton.out'.
 
 .................................................
 . chemgreek info: "mapping-activated"
@@ -877,13 +878,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 (/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 133.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 133.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 133.
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 149.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 132.
 
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/lm/t1lmtt.fd
@@ -894,60 +889,35 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 150.
-
-Overfull \hbox (60.89748pt too wide) in paragraph at lines 151--152
-[][][][]\T1/lmtt/m/n/10 gr[](fmt[]\T1/lmtt/b/n/10 =[][]\T1/lmtt/m/n/10 "png"[],
-legend[]\T1/lmtt/b/n/10 =[][]\T1/lmtt/m/it/10 false[]\T1/lmtt/m/n/10 ,titlefont
-size[]\T1/lmtt/b/n/10 =[][]\T1/lmtt/m/n/10 12[],size[]\T1/lmtt/b/n/10 =[]\T1/lm
-tt/m/n/10 ([]500[],[]200[]),grid[]\T1/lmtt/b/n/10 =[][]\T1/lmtt/m/it/10 false[]
-\T1/lmtt/m/n/10 ,transpose[]\T1/lmtt/b/n/10 =[][]\T1/lmtt/m/it/10 true[]\T1/lmt
-t/m/n/10 ,colorbar[]\T1/lmtt/b/n/10 =[][]\T1/lmtt/m/it/10 false[]\T1/lmtt/m/n/1
-0 );  
- []
-
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 133.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 167.
-[1
+(Font)              <5> on input line 171.
+ [1
 
-] [2]
-File: /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmprd6K2x/1dharmon
-ic_11_1.pdf Graphic file (type pdf)
-<use /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmprd6K2x/1dharmoni
-c_11_1.pdf>
- [3]
-File: /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmprd6K2x/1dharmon
-ic_14_1.pdf Graphic file (type pdf)
-<use /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmprd6K2x/1dharmoni
-c_14_1.pdf>
+]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 225.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 225.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 225.
 
-Overfull \hbox (1.68855pt too wide) in paragraph at lines 350--351
-\T1/lmr/m/n/12 We can re-cy-cle our ear-lier pa-ram-e-ter choices, mod-i-fy-ing
- the damp-ing and sim-u-la-tion timescale 
- []
+! Undefined control sequence.
+l.226 \psi_s(x)= \sqrt{\frac{N}{2\xi}}\sech
+                                           {x/\xi}e^{iux}
+? 
+! Emergency stop.
+l.226 \psi_s(x)= \sqrt{\frac{N}{2\xi}}\sech
+                                           {x/\xi}e^{iux}
+End of file on the terminal!
 
-[4] [5]
-File: /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmprd6K2x/1dharmon
-ic_18_1.pdf Graphic file (type pdf)
-<use /Users/abradley/Dropbox/Julia/FGPEexamples.jl/docs/pdf/tmprd6K2x/1dharmoni
-c_18_1.pdf>
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 419.
- [6]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 419.
- (./1dharmonic.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 419.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 419.
-Package rerunfilecheck Info: File `1dharmonic.out' has not changed.
-(rerunfilecheck)             Checksum: 2F3AF91F2905B623306789E394081012.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 419.
- ) 
+ 
 Here is how much of TeX's memory you used:
- 22008 strings out of 492970
- 380534 string characters out of 6133938
- 497540 words of memory out of 5000000
- 25815 multiletter control sequences out of 15000+600000
- 606432 words of font info for 92 fonts, out of 8000000 for 9000
+ 21987 strings out of 492970
+ 379526 string characters out of 6133938
+ 508761 words of memory out of 5000000
+ 25802 multiletter control sequences out of 15000+600000
+ 603442 words of font info for 91 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 34i,6n,45p,10487b,1696s stack positions out of 5000i,500n,10000p,200000b,80000s
-
-Output written on 1dharmonic.pdf (6 pages).
+ 33i,6n,45p,10492b,928s stack positions out of 5000i,500n,10000p,200000b,80000s
+Output written on 1dbrightsoliton.pdf (1 page).
