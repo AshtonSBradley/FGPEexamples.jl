@@ -9,7 +9,7 @@ html_path = joinpath(source_path,"../docs","html")
 pdf_path = joinpath(source_path,"../docs","pdf")
 notebook_path = joinpath(source_path,"../docs","notebooks")
 
-source_list = ["1dharmonic" "1dbrightsoliton"]
+flist = ["1dharmonic" "1dbrightsoliton" "2dharmonic"]
 
 function weavedocs(file)
     tmp = joinpath(source_path,file)*".jmd"
@@ -18,6 +18,10 @@ function weavedocs(file)
     # Weave.convert_doc(tmp,joinpath(notebook_path,file)*".ipynb")
 end
 
-for file ∈ source_list
+function makeall(flist)
+for file ∈ flist
     weavedocs(file)
 end
+end
+
+makeall(flist)

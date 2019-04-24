@@ -722,7 +722,7 @@ showpsi &#40;generic function with 1 method&#41;
 
 
 <pre class="output">
-Main.WeaveSandBox29.Params
+Main.WeaveSandBox28.Params
   κ: Float64 0.1
 </pre>
 
@@ -758,7 +758,7 @@ Main.WeaveSandBox29.Params
 
 
 <pre class="output">
-FourierGPE.Transforms&#123;1&#125;
+FourierGPE.Transforms&#123;1,1&#125;
   Txk: AbstractFFTs.ScaledPlan&#123;Complex&#123;Float64&#125;,FFTW.cFFTWPlan&#123;Complex&#123;Floa
 t64&#125;,-1,false,1&#125;,Float64&#125;
   Txk&#33;: AbstractFFTs.ScaledPlan&#123;Complex&#123;Float64&#125;,FFTW.cFFTWPlan&#123;Complex&#123;Flo
@@ -767,6 +767,16 @@ at64&#125;,-1,true,1&#125;,Float64&#125;
 t64&#125;,1,false,1&#125;,Float64&#125;
   Tkx&#33;: AbstractFFTs.ScaledPlan&#123;Complex&#123;Float64&#125;,FFTW.cFFTWPlan&#123;Complex&#123;Flo
 at64&#125;,1,true,1&#125;,Float64&#125;
+  Mxk: Array&#123;AbstractFFTs.ScaledPlan&#123;Complex&#123;Float64&#125;,FFTW.cFFTWPlan&#123;Comple
+x&#123;Float64&#125;,-1,false,1&#125;,Float64&#125;&#125;&#40;&#40;1,&#41;&#41;
+  Mxk&#33;: Array&#123;AbstractFFTs.ScaledPlan&#123;Complex&#123;Float64&#125;,FFTW.cFFTWPlan&#123;Compl
+ex&#123;Float64&#125;,-1,true,1&#125;,Float64&#125;&#125;&#40;&#40;1,&#41;&#41;
+  Mkx: Array&#123;AbstractFFTs.ScaledPlan&#123;Complex&#123;Float64&#125;,FFTW.cFFTWPlan&#123;Comple
+x&#123;Float64&#125;,1,false,1&#125;,Float64&#125;&#125;&#40;&#40;1,&#41;&#41;
+  Mkx&#33;: Array&#123;AbstractFFTs.ScaledPlan&#123;Complex&#123;Float64&#125;,FFTW.cFFTWPlan&#123;Compl
+ex&#123;Float64&#125;,1,true,1&#125;,Float64&#125;&#125;&#40;&#40;1,&#41;&#41;
+  psi: RecursiveArrayTools.ArrayPartition&#123;Complex&#123;Float64&#125;,Tuple&#123;Array&#123;Comp
+lex&#123;Float64&#125;,1&#125;&#125;&#125;
 </pre>
 
 
@@ -797,10 +807,6 @@ at64&#125;,1,true,1&#125;,Float64&#125;
 <span class='hljl-n'>sol</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>runsim</span><span class='hljl-p'>(</span><span class='hljl-n'>sim</span><span class='hljl-p'>);</span>
 </pre>
 
-
-<pre class="output">
-1.211735 seconds &#40;1.43 M allocations: 70.126 MiB, 3.33&#37; gc time&#41;
-</pre>
 
 
 <h2>Plot the solution</h2>
@@ -834,7 +840,7 @@ at64&#125;,1,true,1&#125;,Float64&#125;
           <div class="footer"><p>
           Published from <a href="1dbrightsoliton.jmd">1dbrightsoliton.jmd</a> using
           <a href="http://github.com/mpastell/Weave.jl">Weave.jl</a>
-           on 2019-04-18.
+           on 2019-04-24.
           <p></div>
 
 
