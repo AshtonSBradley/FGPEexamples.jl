@@ -3,48 +3,66 @@ title: Bright soliton
 author: Ashton Bradley
 ---
 
-# Introduction
-The bright soliton provides a good test of the balance between kinetic dispersion and
-the attractive nonlinearity. It also tests the periodicity of the fft method.
+# Prelude
+First, let's load some packages and set plot defaults.
 ```julia
-using Plots, LaTeXStrings, Pkg, Revise
-gr(legend=false,titlefontsize=12,size=(500,300),colorbar=false)
+using Pkg, Plots, LaTeXStrings
+gr(legend=false,titlefontsize=12,size=(500,300),colorbar=false,grid=false)
 using FourierGPE
 ```
+# Gross-Pitaevskii equation
+We are going to solve the Gross-Pitaevskii equation
+$$
+i\hbar\frac{\partial \psi(x,t)}{\partial t}=\left(-\frac{\hbar^2\partial_x^2}{2m}+V(x,t)+g|\psi|^2\right)\psi
+$$
+for particular initial and boundary conditions.
 
-# Potential function
+## Bright soliton
+The bright soliton provides a good test of any numerical simulation of the Gross-Pitaevskii equation as it involves a delicate balance between kinetic dispersion and
+the attractive nonlinearity. An initial state with finite momentum also tests the periodicity of the fft method since the soliton will eventually wrap around the domain.
+
+The bright soliton wavefunction with wavenumber $k$ describing its collective motion is
+$$
+\psi_s(x)= \sqrt{\frac{N_s}{2\xi_s}}\textrm{sech}(x/\xi_s)e^{ikx}
+$$
+where the soliton scale $\xi_s$ for $N_s$ particles is given by
+$$
+\xi_s \equiv \frac{2}{|g|N_s}
+$$
+# Simulation
+## Potential function
 ```julia
 import FourierGPE.V
-V(x,t) = zero(x) |> complex
-```
-## Units
-We work in units of ...
-Let's add a convenient plot
-```julia
-function showpsi(x,ψ)
-    p1 = plot(x,abs2.(ψ))
-    xlabel!(L"x/a_x");ylabel!(L"|\psi|^2")
-    p2 = plot(x,angle.(ψ))
-    xlabel!(L"x/a_x");ylabel!(L"\textrm{phase}(\psi)")
-    p = plot(p1,p2,layout=(2,1),size=(600,400))
-    return p
-end
-```
-## User parameters
-We initialize a struct to hold extra user parameters. At the lest, we should
-initialize it as a placeholder containing one variable.
-```julia
-@with_kw mutable struct Params <: UserParams @deftype Float64
-    # parameters (at least a placeholder):
-    κ = 0.1
-end
-par = Params()
+V(x,t) = 0.0 |> complex
 ```
 
-## Simulation parameters
+## Units
+In any numerical calculations we should have a clear understanding of our choice of physical units.
+
+In length unit $\xi_s$, and time unit
+$$
+t_s\equiv \frac{m \xi_s^2}{\hbar},
+$$
+and rescaled wavefunction $\bar\psi = \psi\sqrt{\xi_s}$,
+our dimensionless form of the equation of motion is
+$$
+i\frac{\partial \bar\psi(\bar x,\bar t)}{\partial \bar t}=\left(-\frac{\bar\partial_x^2}{2}+\bar g|\bar\psi|^2\right)\bar\psi
+$$
+where the dimensionless interaction parameter is
+$$
+\bar g \equiv \frac{m\xi_s}{\hbar^2}g < 0
+$$
+# Initialize the simulation
+Create the `sim` struct holding all parameters, with predefined grids.
 ```julia
 L = (60.0,)
 N = (512,)
+sim = Sim(L,N)
+@unpack_Sim sim;
+```
+
+# Parameters
+```julia
 μ = 25.0
 g = -0.01
 γ = 0.0
@@ -55,29 +73,17 @@ tf = 1π |> Float64
 Nt = 150
 t = LinRange(0.,tf,Nt);
 ```
-# Initialize simulation
-Create the `sim` struct holding all parameters.
+## Initial condition
+We initialize the bright soliton with dimensionless velocity $u_s$ as
 ```julia
-sim = Sim(L,N,par)
-@pack! sim = μ,g,γ,t,tf,Nt
-@unpack_Sim sim
-```
-## Initial soliton
-The bright soliton wavefunction is
-$$
-\psi_s(x)= \sqrt{\frac{N}{2\xi}}\textrm{sech}(x/\xi)e^{iux}
-$$
-We initialzie this as
-
-```julia
-X,K = makearrays(L,N)
 x = X[1]
 ψs(x) = sqrt(Ns/2ξs)*sech(x/ξs)*exp(im*us*x)
 ψi = ψs.(x)
 ϕi = kspace(ψi,sim)
-@pack! sim = ϕi;
+
+@pack_Sim! sim; #finally, pack everything up for simulation.
 ```
-## Evolve in k space
+## Evolve in k-space
 Now we have everything we need to evolve in k-space
 ```julia
 sol = runsim(sim);
