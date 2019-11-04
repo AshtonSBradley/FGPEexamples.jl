@@ -86,9 +86,10 @@ x = X[1]
 ## Evolve in k-space
 Now we have everything we need to evolve in k-space
 ```julia
-sol = runsim(sim);
+@time sol = runsim(sim);
 ```
 ## Plot the solution
+(check the phase!)
 ```julia
 showpsi(x,xspace(sol[end],sim))
 ```
