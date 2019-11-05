@@ -20,6 +20,16 @@ In the [dark soliton example](https://ashtonsbradley.github.io/FGPEexamples.jl/h
 
 <img src="/media/soliton.gif" width="500" height="200"> 
 
+## Vortex precession in a 2D harmonic trap
+
+A quantum vortex will precess at a frequency that is known analytically providing a simple test of both GPE evolution and vortex imprinting methods. 
+
+In the [vortex precession example](https://ashtonsbradley.github.io/FGPEexamples.jl/html/2dharmonic.html) we find a ground state, imprint a vortex, evolve in real time:
+
+<img src="/media/vortex.gif" width="500" height="200"> 
+
+The frequency compares well with the analytical result. 
+
 ## Quench in a 3D periodic box
 The same code will generate 3D, 2D, 1D systems (n-D is also available).
 
