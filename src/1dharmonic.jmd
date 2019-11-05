@@ -11,7 +11,7 @@ The mean field order parameter evolves according to the GP-equation
 $$
 i\hbar\frac{\partial \psi(x,t)}{\partial t}=\left(-\frac{\hbar^2\partial_x^2}{2m}+V(x,t)+g|\psi(x,t)|^2\right)\psi(x,t)
 $$
-with potential $V(x,t)=m\omega_x^2 x^2/2$, and posititive interaction strength $g>0$.
+with potential $V(x,t)=m\omega_x^2 x^2/2$, and positive interaction strength $g$.
 
 The equation of motion solved numerically is
 $$
@@ -42,36 +42,24 @@ function showpsi(x,ψ)
 end
 ```
 
-# User parameters
-We reserve a place for user parameters.
-```julia
-@with_kw mutable struct Params <: UserParams @deftype Float64
-    # user parameters:
-    κ = 0.1
-end
-par = Params();
-```
-
-Let's set the system size, and number of spatial points
+Let's set the system size, and number of spatial points and initialize default simulation
 ```julia
 L = (40.0,)
 N = (512,)
+sim = Sim(L,N)
+@unpack_Sim sim;
 μ = 25.0
 ```
-Now we need to initialize the simulation object and the transforms
-```julia
-sim = Sim(L,N,par)
-@pack! sim = μ
-@unpack_Sim sim;
-```
+Here we keep most of the default parameters but increase the chemical potential.
+
 ## Declaring the potential
 Let's define the trapping potential.
 ```julia
 import FourierGPE.V
 V(x,t) = 0.5*x^2
 ```
-We only require that it is a scalar function
-because alter we will evaluate it using a broadcasted dot-call.
+We only require the definition as a scalar function
+because it will be evaluated on the grid using a broadcasted dot-call.
 
 # Initial condition
 Let's define a useful Thomas-Fermi wavefunction
@@ -79,11 +67,12 @@ Let's define a useful Thomas-Fermi wavefunction
 ψ0(x,μ,g) = sqrt(μ/g)*sqrt(max(1.0-V(x,0.0)/μ,0.0)+im*0.0)
 x = X[1];
 ```
-The initial state is now created as
+The initial state is now created on the grid and all modified variables are scooped up into `sim`:
 ```julia
 ψi = ψ0.(x,μ,g)
 ϕi = kspace(ψi,sim)
-@pack! sim = ϕi;
+@pack_Sim! sim;
+sim
 ```
 
 # Evolution in k-space
@@ -91,9 +80,9 @@ The `FFTW` library is used to evolve the Gross-Pitaevskii equation in k-space
 ```julia
 sol = runsim(sim);
 ```
-Here we save the entire solution as a single variable `sol`.
+By default the solver returns all time slices and solution information in a single variable `sol`.
 
-Let's have a look at the final state and verify we have a ground state
+Let's have a look at the final state and verify we have a ground state (note above that $\gamma=0.5$ is default)
 ```julia
 ϕg = sol[end]
 ψg = xspace(ϕg,sim)
@@ -114,34 +103,41 @@ profile over the region of finite atomic density, as required for the ground sta
 phase evident at large $|x|$ is unimportant.
 
 ## Default simulation parameters
-The default parameters are given in the declaration of `Sim`, which allows parameter interdependence.
+The default parameters are given in the declaration of `Sim`, which allows (sequential) parameter dependence.
 The struct `Sim` is declared as:
 
 ```julia; eval = false
 @with_kw mutable struct Sim{D} <: Simulation{D} @deftype Float64
-    L::NTuple{D,Float64}
-    N::NTuple{D,Int64}
-    μ = 15.0
-    g = 0.1
-    γ = 0.5; @assert γ >= 0.0
-    ti = 0.0
-    tf = 2/γ
-    Nt::Int64 = 200
-    t::LinRange{Float64} = LinRange(ti,tf,Nt)
-    ϕi::Array{Complex{Float64},D} = zeros(N...) |> complex
-    alg::OrdinaryDiffEq.OrdinaryDiffEqAdaptiveAlgorithm = Tsit5()
-    reltol::Float64 = 1e-6
-    params::UserParams # optional parameters
+    # Add more parameters as necessary, or add to params (see examples)
+    L::NTuple{D,Float64} # box length scales
+    N::NTuple{D,Int64}  # grid points in each dimensions
+    μ = 15.0    # chemical potential
+    g = 0.1     # interaction parameter
+    γ = 0.5; @assert γ >= 0.0 # damping parameter
+    ti = 0.0    # initial time
+    tf = 2/γ    # final time
+    Nt::Int64 = 200     # number of saves over (ti,tf)
+    params::UserParams = Params() # optional user parameters
+    V0::Array{Float64,D} = zeros(N)
+    t::LinRange{Float64} = LinRange(ti,tf,Nt) # time of saves
+    ϕi::Array{Complex{Float64},D} = zeros(N) |> complex # initial condition
+    alg::OrdinaryDiffEq.OrdinaryDiffEqAdaptiveAlgorithm = Tsit5() # default solver
+    reltol::Float64 = 1e-6 # default tolerance; may need to use 1e-7 for corner cases
+    flags::UInt32 = FFTW.MEASURE # choose a plan. PATIENT, NO_TIMELIMIT, EXHAUSTIVE
+    nfiles::Bool = false
+    path::String = nfiles ? joinpath(@__DIR__,"data") : @__DIR__
+    filename::String = "save"
+    # =======================================
+    # arrays, transforms, spectral operators
     X::NTuple{D,Array{Float64,1}} = xvecs(L,N)
     K::NTuple{D,Array{Float64,1}} = kvecs(L,N)
-    espec::Array{Complex{Float64},D} = 0.5*k2(L,N)
-    flags::UInt32 = FFTW.MEASURE
-    T::TransformLibrary = makeT(X,K;flags=flags)
+    espec::Array{Complex{Float64},D} = 0.5*k2(K)
+    T::TransformLibrary = makeT(X,K,flags=flags)
 end
 ```
 
 where we see a set of default parameters, and then some useful transform fields built using the parameters.
-Note that the transforms have to be built after building `X,K`.
+Note that the transforms have to be built after constructing `X,K`.
 
 # Dark soliton in harmonically trapped system
 We found a ground state by imaginary time propagation.
@@ -158,9 +154,9 @@ v = 0.5*c
 xs = 0.
 f = sqrt(1-(v/c)^2)
 ```
-Soliton speed is determined by depth and local healing length. Start at $xs=0.0$
+Soliton speed is determined by depth and local healing length, and is intialized at `xs=0.0`.
 ```julia
-ψs = ψf.*(f*tanh.(f*(x .-xs)/ξ).+im*v/c);
+ψs = @. ψf*(f*tanh(f*(x -xs)/ξ)+im*v/c)
 showpsi(x,ψs)
 xlims!(-10,10)
 ```
@@ -172,10 +168,8 @@ tf = 8*pi/sqrt(2); t = LinRange(ti,tf,Nt)
 dt = 0.01π/μ
 simSoliton = Sim(sim;γ=γ,tf=tf,t=t)
 ϕi = kspace(ψs,simSoliton)
-@pack! simSoliton = ϕi
-@unpack_Sim simSoliton;
+@pack_Sim! simSoliton;
 ```
-In doing so, we have to specify the dimension of the simulation in this case (an improved constructor needed).
 
 ## Solve equation of motion
 As before, we specify the initial condition in momentum space, and evolve
