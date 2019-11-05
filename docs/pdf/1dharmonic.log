@@ -1,8 +1,8 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.8.2)  6 NOV 2019 09:51
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.9.23)  6 NOV 2019 12:17
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**1dharmonic.tex -aux-directory ./jl_OGAI30 -include-directory /Users/abradley/
+**1dharmonic.tex -aux-directory ./jl_ojjaqw -include-directory /Users/abradley/
 .julia/dev/FGPEexamples/src/../docs/pdf
 (./1dharmonic.tex
 LaTeX2e <2018-12-01>
@@ -844,35 +844,35 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 [1
 
 ] [2] [3]
-File: /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_YiFeZy/1dharmonic_10_
+File: /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_HfBY3U/1dharmonic_10_
 1.pdf Graphic file (type pdf)
-<use /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_YiFeZy/1dharmonic_10_1
+<use /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_HfBY3U/1dharmonic_10_1
 .pdf>
  [4]
-File: /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_YiFeZy/1dharmonic_12_
+File: /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_HfBY3U/1dharmonic_12_
 1.pdf Graphic file (type pdf)
-<use /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_YiFeZy/1dharmonic_12_1
+<use /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_HfBY3U/1dharmonic_12_1
 .pdf>
  [5]
-File: /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_YiFeZy/1dharmonic_16_
+File: /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_HfBY3U/1dharmonic_16_
 1.pdf Graphic file (type pdf)
-<use /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_YiFeZy/1dharmonic_16_1
+<use /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_HfBY3U/1dharmonic_16_1
 .pdf>
  [6]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 451.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 452.
  [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 451.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 452.
  (./1dharmonic.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 451.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 451.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 452.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 452.
 Package rerunfilecheck Info: File `1dharmonic.out' has not changed.
 (rerunfilecheck)             Checksum: 214398D4B250803F32182BC771F3DA8A.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 451.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 452.
  ) 
 Here is how much of TeX's memory you used:
  23217 strings out of 492916
- 397130 string characters out of 6133346
- 631106 words of memory out of 5000000
+ 397130 string characters out of 6133345
+ 629106 words of memory out of 5000000
  27060 multiletter control sequences out of 15000+600000
  586290 words of font info for 93 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191

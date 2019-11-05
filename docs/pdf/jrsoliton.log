@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.9.23)  6 NOV 2019 12:20
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.9.23)  6 NOV 2019 12:21
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**2dharmonic.tex -aux-directory ./jl_jOdGg3 -include-directory /Users/abradley/
-.julia/dev/FGPEexamples/src/../docs/pdf
-(./2dharmonic.tex
+**jrsoliton.tex -aux-directory ./jl_UHP4WG -include-directory /Users/abradley/.
+julia/dev/FGPEexamples/src/../docs/pdf
+(./jrsoliton.tex
 LaTeX2e <2018-12-01>
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
@@ -668,8 +668,8 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 )
-(./2dharmonic.aux)
-\openout1 = `2dharmonic.aux'.
+(./jrsoliton.aux)
+\openout1 = `jrsoliton.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 123.
 LaTeX Font Info:    ... okay on input line 123.
@@ -696,7 +696,6 @@ LaTeX Font Info:    Try loading font information for TS1+cmr on input line 123.
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 123.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -758,9 +757,9 @@ LaTeX Info: Redefining \ref on input line 123.
 LaTeX Info: Redefining \pageref on input line 123.
 LaTeX Info: Redefining \nameref on input line 123.
 
-(./2dharmonic.out) (./2dharmonic.out)
+(./jrsoliton.out) (./jrsoliton.out)
 \@outlinefile=\write3
-\openout3 = `2dharmonic.out'.
+\openout3 = `jrsoliton.out'.
 
 
 Package chemgreek Info: Activating mapping `default' on line 123.
@@ -833,38 +832,34 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 200.
-File: /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_nW2qGk/2dharmonic_7_1
-.pdf Graphic file (type pdf)
-<use /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_nW2qGk/2dharmonic_7_1.
-pdf>
+File: /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_YhOkYX/jrsoliton_7_1.
+pdf Graphic file (type pdf)
+<use /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_YhOkYX/jrsoliton_7_1.p
+df>
 
 [2]
-File: /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_nW2qGk/2dharmonic_9_1
+File: /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_YhOkYX/jrsoliton_10_1
 .pdf Graphic file (type pdf)
-<use /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_nW2qGk/2dharmonic_9_1.
+<use /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_YhOkYX/jrsoliton_10_1.
 pdf>
- [3] [4]
-File: /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_nW2qGk/2dharmonic_14_
-1.pdf Graphic file (type pdf)
-<use /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_nW2qGk/2dharmonic_14_1
-.pdf>
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 352.
- [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 352.
- (./2dharmonic.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 352.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 352.
-Package rerunfilecheck Info: File `2dharmonic.out' has not changed.
-(rerunfilecheck)             Checksum: EBB44A0CADA3A99F9F6C425BC36CF30E.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 352.
+ [3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 292.
+ [4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 292.
+ (./jrsoliton.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 292.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 292.
+Package rerunfilecheck Info: File `jrsoliton.out' has not changed.
+(rerunfilecheck)             Checksum: FA212ECDFC9F721BDC8BD5A354586F1C.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 292.
  ) 
 Here is how much of TeX's memory you used:
- 23207 strings out of 492916
- 396905 string characters out of 6133345
- 504067 words of memory out of 5000000
- 27053 multiletter control sequences out of 15000+600000
+ 23203 strings out of 492916
+ 396606 string characters out of 6133345
+ 501880 words of memory out of 5000000
+ 27050 multiletter control sequences out of 15000+600000
  586274 words of font info for 91 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 34i,11n,45p,892b,928s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,6n,45p,891b,932s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on 2dharmonic.pdf (5 pages).
+Output written on jrsoliton.pdf (4 pages).

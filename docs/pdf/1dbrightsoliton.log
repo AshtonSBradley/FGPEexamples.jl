@@ -1,8 +1,8 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.8.2)  6 NOV 2019 09:55
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.9.23)  6 NOV 2019 12:17
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**1dbrightsoliton.tex -aux-directory ./jl_ovO4fD -include-directory /Users/abra
+**1dbrightsoliton.tex -aux-directory ./jl_4RiSsh -include-directory /Users/abra
 dley/.julia/dev/FGPEexamples/src/../docs/pdf
 (./1dbrightsoliton.tex
 LaTeX2e <2018-12-01>
@@ -836,9 +836,9 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 205.
 
 [2]
-File: /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_SDs4ys/1dbrightsolito
+File: /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_aKR2Ut/1dbrightsolito
 n_7_1.pdf Graphic file (type pdf)
-<use /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_SDs4ys/1dbrightsoliton
+<use /Users/abradley/.julia/dev/FGPEexamples/docs/pdf/jl_aKR2Ut/1dbrightsoliton
 _7_1.pdf>
  [3]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 267.
@@ -853,7 +853,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 267.
  ) 
 Here is how much of TeX's memory you used:
  23217 strings out of 492916
- 396857 string characters out of 6133346
+ 396857 string characters out of 6133345
  500958 words of memory out of 5000000
  27058 multiletter control sequences out of 15000+600000
  586306 words of font info for 95 fonts, out of 8000000 for 9000
