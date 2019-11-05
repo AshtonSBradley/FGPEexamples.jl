@@ -1,4 +1,4 @@
-using Pkg, Weave, Revise
+using Pkg, Weave
 pkg"activate ."
 
 cssfile = joinpath(@__DIR__,"templates","skeleton_css.css")
@@ -10,7 +10,7 @@ pdf_path = joinpath(source_path,"../docs","pdf")
 notebook_path = joinpath(source_path,"../docs","notebooks")
 
 # flist = ["1dharmonic" "1dbrightsoliton" "2dharmonic" "3dslab"]
-flist = ["2dharmonic"]
+flist = ["jrsoliton"]
 
 function weavedocs(file)
     tmp = joinpath(source_path,file)*".jmd"
