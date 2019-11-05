@@ -1,0 +1,107 @@
+---
+title: Jones-Roberts soliton motion in a homogeneous BEC
+author: Sukla Pal
+---
+
+# Introduction
+In this example we simulate the precession of a single quantum vortex in a harmonic trap, and compare with the analytical result found by Fetter.
+
+As simple model of this process, we start with the damped GPE
+$$
+i\hbar\partial_t\psi = (1-i\gamma)(L-\mu)\psi
+$$
+where the GP operator is defined as
+$$
+L\psi\equiv \left(-\frac{\hbar^2\nabla^2}{2m}+V(\mathbf{r})+g|\psi|^2\right)\psi
+$$
+and as usual the S-wave interaction parameter is $g=4\pi\hbar^2 a/m$ for S-wave scattering
+lenght $a$.
+
+The trap is chosen to be trivial
+$$
+V(\mathbf{r})=0
+$$
+The number $\gamma\ll 1$ describes irreversable interactons between condensate
+and noncondensate atoms, inducing condensate growth.
+
+# Loading the package
+First, we load some useful packages, setting defaults for `Plots`.
+```julia
+using Plots, LaTeXStrings
+gr(titlefontsize=12,size=(500,300),transpose=true,colorbar=false)
+```
+Now load `FourierGPE`
+```julia
+using FourierGPE
+```
+In this example, we work in oscillator units. The units of length and time are
+$a_\perp=\sqrt{\hbar/m\omega_\perp}$ and $1/\omega_\perp$ respectively.
+
+# Initialize simulation
+Initialize default sim with domain and grid parameters
+```julia
+L = (20.0,20.0)
+N = (128,128)
+sim = Sim(L,N)
+@unpack_Sim sim;
+```
+
+# Declare the potential
+```julia
+import FourierGPE.V
+V(x,y,t)::Float64 = 0.0
+```
+
+# Thomas-Fermi initial state
+```julia
+ψ0(x,y,μ,g) = sqrt(μ/g)*sqrt(max(1.0-V(x,y,0.0)/μ,0.0)+im*0.0)
+x,y = X
+
+μ = 25.0
+ψi = ψ0.(x,y',μ,g)
+ϕi = kspace(ψi,sim)
+@pack_Sim! sim;
+```
+# Imaginary-time evolution in k space
+```julia
+@time sol = runsim(sim);
+```
+Let's pull out the final state and verify that it is indeed the ground state of the harmonic trap:
+```julia
+ϕg = sol[end]
+ψg = xspace(ϕg,sim)
+showpsi(x,y,ψg)
+```
+
+# Imprint Jones-Roberts soliton
+We imprint a JR-soliton using the [analytical solution](https://dx.doi.org/)
+
+# Set simulation parameters
+Let's evolve for one period of Hamiltonian dynamics, as predicted by the Thomas-Fermi analysis:
+```julia
+γ = 0.0
+ϕi = kspace(ψg,sim)
+@pack_Sim! sim; # write over previous sim  and reuse
+```
+# Evolve in k space
+```julia
+solv = runsim(sim);
+```
+Pull out a state after some evolution
+```julia
+ϕf = solv[100]
+ψf = xspace(ϕf,sim)
+showpsi(x,y,ψf)
+```
+We can trim the last few frames to show one orbit
+```julia
+anim = @animate for i=1:Nt-6
+    ψ = xspace(solv[i],sim)
+    showpsi(x,y,ψ)
+end;
+```
+and save the animation to the [media folder](../../media/jrsoliton.gif)
+```julia
+gif(anim,"./media/jrsoliton.gif",fps=30)
+```
+discuss...
