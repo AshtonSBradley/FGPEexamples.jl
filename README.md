@@ -26,7 +26,7 @@ A quantum vortex will precess at a frequency that is known analytically providin
 
 In the [vortex precession example](https://ashtonsbradley.github.io/FGPEexamples.jl/html/2dharmonic.html) we find a ground state, imprint a vortex, evolve in real time:
 
-<img src="/media/vortex.gif" width="500" height="200"> 
+<img src="/media/vortex.gif" width="500"> 
 
 The frequency compares well with the analytical result. 
 
