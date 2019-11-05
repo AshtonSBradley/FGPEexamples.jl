@@ -1,4 +1,11 @@
-\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.2}{Potential\040function}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Units}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{User\040parameters}{section.2}% 4
+\BOOKMARK [1][-]{section.1}{Prelude}{}% 1
+\BOOKMARK [1][-]{section.2}{Gross-Pitaevskii\040equation}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Bright\040soliton}{section.2}% 3
+\BOOKMARK [1][-]{section.3}{Simulation}{}% 4
+\BOOKMARK [2][-]{subsection.3.1}{Potential\040function}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.2}{Units}{section.3}% 6
+\BOOKMARK [1][-]{section.4}{Initialize\040the\040simulation}{}% 7
+\BOOKMARK [1][-]{section.5}{Parameters}{}% 8
+\BOOKMARK [2][-]{subsection.5.1}{Initial\040condition}{section.5}% 9
+\BOOKMARK [2][-]{subsection.5.2}{Evolve\040in\040k-space}{section.5}% 10
+\BOOKMARK [2][-]{subsection.5.3}{Plot\040the\040solution}{section.5}% 11

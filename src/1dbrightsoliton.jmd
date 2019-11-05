@@ -93,7 +93,7 @@ Now we have everything we need to evolve in k-space
 ```julia
 showpsi(x,xspace(sol[end],sim))
 ```
-or we can make an animation, found in the media folder.
+or we can make an animation, saved to the [media folder](../../media/brightsoliton.gif).
 ```julia;eval=false
 anim = @animate for i=1:Nt-8
     ψ = xspace(sol[i],sim)
