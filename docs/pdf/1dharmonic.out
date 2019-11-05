@@ -2,8 +2,8 @@
 \BOOKMARK [1][-]{section.2}{Loading\040the\040package}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{Declaring\040the\040potential}{section.2}% 3
 \BOOKMARK [1][-]{section.3}{Initial\040condition}{}% 4
-\BOOKMARK [1][-]{section.4}{Evolution\040in\040k-space}{}% 5
-\BOOKMARK [2][-]{subsection.4.1}{Default\040simulation\040parameters}{section.4}% 6
+\BOOKMARK [2][-]{subsection.3.1}{Default\040simulation\040parameters}{section.3}% 5
+\BOOKMARK [1][-]{section.4}{Evolution\040in\040k-space}{}% 6
 \BOOKMARK [1][-]{section.5}{Dark\040soliton\040in\040harmonically\040trapped\040system}{}% 7
 \BOOKMARK [2][-]{subsection.5.1}{Imprinting\040a\040dark\040soliton}{section.5}% 8
 \BOOKMARK [2][-]{subsection.5.2}{Initilize\040Simulation}{section.5}% 9
