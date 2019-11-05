@@ -1,12 +1,10 @@
 ---
-title: Quench in a 2D parabolic trap
+title: Vortex precession in a 2D parabolic trap
 author: Ashton Bradley
 ---
 
 # Introduction
-Quenching in 2D reveals the symmetry breaking inherent in the BEC phase transition.
-As the order parameter grows from thermal fluctuations, small phase coherent domains
-form locally, a spontaneous breaking of $U(1)$ symmetry.
+In this example we simulate the precession of a single quantum vortex in a harmonic trap, and compare with the analytical result found by Fetter.
 
 As simple model of this process, we start with the damped GPE
 $$
@@ -25,10 +23,11 @@ V(\mathbf{r})=\frac{m\omega_\perp^2}{2}(x^2 + y^2)
 $$
 The number $\gamma\ll 1$ describes irreversable interactons between condensate
 and noncondensate atoms, inducing condensate growth.
+
 # Loading the package
-First, we load some useful packages.
+First, we load some useful packages, setting defaults for `Plots`.
 ```julia
-using Plots, LaTeXStrings, Pkg, Revise
+using Plots, LaTeXStrings
 gr(titlefontsize=12,size=(500,300),transpose=true,colorbar=false)
 ```
 Now load `FourierGPE`
@@ -38,92 +37,71 @@ using FourierGPE
 In this example, we work in oscillator units. The units of length and time are
 $a_\perp=\sqrt{\hbar/m\omega_\perp}$ and $1/\omega_\perp$ respectively.
 
-Let's add a convenient plot
-```julia
-function showpsi(x,y,ψ)
-    p1 = heatmap(x,y,abs2.(ψ),aspectratio=1)
-    xlabel!(L"x/a_x");ylabel!(L"y/a_y")
-    title!(L"|\psi|^2")
-    p2 = heatmap(x,y,angle.(ψ),aspectratio=1)
-    xlabel!(L"x/a_x");ylabel!(L"y/a_y")
-    title!(L"\textrm{phase}(\psi)")
-    p = plot(p1,p2,size=(600,300))
-    return p
-end
-```
-# Define user parameters
-```julia
-@with_kw mutable struct Params <: UserParams @deftype Float64
-    # user parameters:
-    κ = 0.1
-end
-par = Params();
-```
-# Set simulation parameters
+# Initialize simulation
+Initialize default sim with domain and grid parameters
 ```julia
 L = (20.0,20.0)
 N = (128,128)
-μ = 25.0
-```
-
-# Initialize simulation
-```julia
-sim = Sim(L,N,par)
-@pack! sim = μ
+sim = Sim(L,N)
 @unpack_Sim sim;
 ```
-# Declare the potential function
+
+# Declare the potential
 ```julia
 import FourierGPE.V
 V(x,y,t)::Float64 = 0.5*(x^2 + y^2)
 ```
-# Thomas-Fermi state
+
+# Thomas-Fermi initial state
 ```julia
 ψ0(x,y,μ,g) = sqrt(μ/g)*sqrt(max(1.0-V(x,y,0.0)/μ,0.0)+im*0.0)
-```
-# Make initial state
-```julia
 x,y = X
 
+μ = 25.0
 ψi = ψ0.(x,y',μ,g)
 ϕi = kspace(ψi,sim)
-@pack! sim = ϕi;
+@pack_Sim! sim;
 ```
-# Evolve in k space
+# Imaginary-time evolution in k space
 ```julia
-sol = runsim(sim);
+@time sol = runsim(sim);
 ```
-Let's pull out the ground state and take a look:
+Let's pull out the final state and verify that it is indeed the ground state of the harmonic trap:
 ```julia
 ϕg = sol[end]
 ψg = xspace(ϕg,sim)
 showpsi(x,y,ψg)
 ```
-# Add a vortex off-axis
-We can use `VortexDistributions` to inprint a vortex off axis and test vortex precession.
+
+# Time dynamics: precession of an off-axis vortex
+We can use `VortexDistributions` to imprint a vortex off axis and test vortex precession rate according to the GPE.
 ```julia
 using VortexDistributions
 ```
 
 # Initial state
-We imprint a vortex inside Thomas-Fermi radius
+We imprint a vortex inside the Thomas-Fermi radius
 ```julia
 healing(x,y,μ,g) = 1/sqrt(g*abs2(ψ0(x,y,μ,g)))
 Rtf = sqrt(2*μ)
 rv = 0.5*Rtf
 xv,yv,cv = rv, 0.0, 1
-initialvortex = [xv yv cv]
-ξv = healing(xv,yv,μ,g)
-ψv = copy(ψg)
-makeallvortices!(ψv,initialvortex,x,y,ξv)
+pv1 = PointVortex(xv,yv,cv) # coordinates and charge for vortex
+ξv = healing(xv,yv,μ,g) # local healing length at the vortex
+v1 = ScalarVortex(ξv,pv1) # define scalar GPE vortex with local healing length
+
+ψ1 = Torus(copy(ψg),x,y) # methods in VortexDistributions require type conversion
+vortex!(ψ1,v1) # phase/density imprint vortex
+ψv = ψ1.ψ #pull out the new wavefunction
 showpsi(x,y,ψv)
 ```
+# Precession frequency
 In the Thomas-Fermi regime, precession frequency is given analytically in terms of the
-healing length $\xi$ by (see Fetter JLTP 2010):
+healing length $\xi$ by (see e.g. [Fetter JLTP 2010](https://dx.doi.org/10.1007/s10909-010-0202-7)):
 $$
 \begin{align}
-\Omega_m &= \frac{3}{2R_{tf}^2}\log{\left(\frac{R_{tf}}{\xi\sqrt{2}}\right)}\\
-\Omega_v &= \frac{\Omega_m}{1-r_v^2/R_{tf}^2}
+\Omega_m &= \frac{3}{2R_{\rm TF}^2}\log{\left(\frac{R_{\rm TF}}{\xi\sqrt{2}}\right)}\\
+\Omega_v &= \frac{\Omega_m}{1-r_v^2/R_{\rm TF}^2}
 \end{align}
 $$
 For our parameters this is
@@ -143,8 +121,7 @@ Let's evolve for one period of Hamiltonian dynamics, as predicted by the Thomas-
 tf = Tv
 t = LinRange(ti,tf,Nt)
 ϕi = kspace(ψv,sim)
-@pack! sim = tf,t,γ,ϕi,reltol,alg
-@unpack_Sim sim;
+@pack_Sim! sim; # write over previous sim  and reuse
 ```
 # Evolve in k space
 ```julia
@@ -156,15 +133,22 @@ Pull out a state after some evolution
 ψf = xspace(ϕf,sim)
 showpsi(x,y,ψf)
 ```
-We can trim the last few frames to show one orbit.
-The analytical result is within about $\sim 10\%$.
+We can trim the last few frames to show one orbit
 ```julia
 anim = @animate for i=1:Nt-6
     ψ = xspace(solv[i],sim)
     showpsi(x,y,ψ)
-end
+end;
 ```
-And we can save the animation to file (see examples folder)
+and save the animation to the [media folder](../../media/vortex.gif)
 ```julia;eval=false
-gif(anim,"./examples/vortex.gif",fps=30)
+gif(anim,"./media/vortex.gif",fps=30)
 ```
+The simulation gives a precession frequency within about $\sim 10\%$ of the analytical result.
+
+This last simulation was in real time ($\gamma=0$), and we see there is very little additional
+exciation imposed by imprinting and evolving the vortex. This provides a sanity check of both the
+time dynamics, and the vortex imprinting procedure. The latter used the numerically exact vortex core
+for the specified local healing length. The vortex phase is the ideal phase for a vortex in an infinite system
+with constant density specified at the core, and will cause some additional superfluid motion as the
+BEC responds to this initial state. 
