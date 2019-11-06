@@ -1,0 +1,101 @@
+---
+title: Quench in a 3D harmonic trap
+author: Ashton Bradley
+---
+
+# Introduction
+Quenching in 3D reveals the symmetry breaking inherent in the BEC phase transition.
+As the order parameter grows from thermal fluctuations, small phase coherent domains
+form locally, a spontaneous breaking of $U(1)$ symmetry.
+
+As simple model of this process, we start with the damped GPE
+$$
+i\hbar\partial_t\psi = (1-i\gamma)(L-\mu)\psi
+$$
+where the GP operator is defined as
+$$
+L\psi\equiv \left(-\frac{\hbar^2\nabla^2}{2m}+g|\psi|^2\right)\psi
+$$
+and as usual the S-wave interaction parameter is $g=4\pi\hbar^2 a/m$ for S-wave scattering
+lenght $a$.
+
+The number $\gamma\ll 1$ describes irreversable interactons between condensate
+and noncondensate atoms, inducing condensate growth.
+
+The initial condition for the field will be a complex random field with no condensate,
+and $\mu$ represents the chemical potential of the reservoir that $\psi$ will eventually come into equilibrium with.
+
+# Loading the package
+First, we load some useful packages.
+```julia
+using Plots, LaTeXStrings
+gr(titlefontsize=12,size=(500,300),transpose=true,colorbar=false);
+```
+Now load `FourierGPE`
+```julia
+using FourierGPE
+```
+In this example, we work in units of healing length and inverse chemical potential for length and time respectively.
+We will also use [Makie](https://github.com/JuliaPlots/Makie.jl) to plot.
+
+# Set simulation parameters
+```julia
+L=(16.,16.,16.)
+N=(64,64,64)
+sim = Sim(L,N)
+@unpack_Sim sim;
+```
+
+# Initialize simulation
+```julia
+# parameters
+μ = 25.0
+γ = 0.05
+tf = 4/γ
+Nt = 200
+t = LinRange(0.,tf,Nt);
+```
+
+The simulation will start from a random state with no condensate:
+```julia
+x,y,z = X
+ψi = randn(N)+im*randn(N)
+ϕi = kspace(ψi,sim)
+
+@pack_Sim! sim;
+```
+
+# Evolve in k space
+```julia;eval=false
+sol = runsim(sim) # will take a few minutes to run.
+```
+
+# Density isosurface
+```julia;eval=false
+using Makie, AbstractPlotting
+
+function dense(i)
+    ψm = xspace(sol[i],sim)
+    density = abs2.(ψm)
+    pmax = maximum(density)
+    return density/pmax
+end
+
+function densityfilm(Nt,saveto="media/3dquenchtrap.gif")
+scene = Scene()
+tindex = Node(1)
+
+scene = volume(lift(i -> dense(i), tindex), algorithm = :iso,show_axis=false)
+
+record(scene, saveto, 1:Nt-10) do i
+    tindex[] = i
+end
+end
+
+densityfilm(Nt)
+```
+The order parameter becomes host to many sponteneously generated voretx lines and
+rings that eventually annihilate each other as the system approaches the quescent ground state.
+
+
+![[animation (see media folder)]](../../media/3dquenchtrap.gif)
