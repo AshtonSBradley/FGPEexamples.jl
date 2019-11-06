@@ -74,10 +74,7 @@ The initial state is now created on the grid and all modified variables are scoo
 ψi = ψ0.(x,μ,g)
 ϕi = kspace(ψi,sim) #sim uses Fourier transforms that are norm-preserving
 @pack_Sim! sim;
-sim
 ```
-The important points to note here are that we have modified $\mu$ and the initial condition $\phi_i$, and we have left the default damping parameter
-$\gamma=0.5$ which means we are going to find a ground state of the GPE.
 
 ## Default simulation parameters
 The source code defining the simulation type `Sim` sets the default values and
@@ -112,6 +109,9 @@ also has some further explanation of each variable:
     T::TransformLibrary = makeT(X,K,flags=flags)
 end
 ```
+
+The important points to note here are that we have modified $\mu$ and the initial condition $\phi_i$, and we have left the default damping parameter
+$\gamma=0.5$ which means we are going to find a ground state of the GPE.
 
 # Evolution in k-space
 The `FFTW` library is used to evolve the Gross-Pitaevskii equation in k-space
@@ -194,17 +194,8 @@ end
 animpath = joinpath(@__DIR__,"media/soliton.gif")
 gif(anim,animpath,fps=30)
 ```
-The result is visible in the [media folder](../../media/soliton.gif) of this repository.
+<!-- The result is visible in the [media folder](../../media/soliton.gif) of this repository. -->
 
+![soliton](../media/soliton.gif)
 
-Here we simply plot the final state:
-```julia
-ψ = xspace(sols[end],simSoliton)
-y = g*abs2.(ψ)
-p=plot(x,y,fill=(0,0.2),size=(500,200))
-xlims!(-10,10); ylims!(0,1.3*μ)
-title!(L"\textrm{local}\; \mu(x)")
-xlabel!(L"x/a_x"); ylabel!(L"\mu(x)/\hbar\omega_x")
-plot(p)
-```
-The dark soliton executes simple harmonic motion with amplitude detemined by its depth.
+The dark soliton executes simple harmonic motion with amplitude determined by its depth.

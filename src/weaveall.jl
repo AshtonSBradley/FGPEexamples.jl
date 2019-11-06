@@ -9,14 +9,14 @@ html_path = joinpath(source_path,"../docs","html")
 pdf_path = joinpath(source_path,"../docs","pdf")
 notebook_path = joinpath(source_path,"../docs","notebooks")
 
-flist = ["1dharmonic" "1dbrightsoliton" "2dharmonic" "jrsoliton"]
-# flist = ["jrsoliton"]
+# flist = ["1dharmonic" "1dbrightsoliton" "2dharmonic" "jrsoliton"]
+flist = ["1dharmonic"]
 
 function weavedocs(file)
     tmp = joinpath(source_path,file)*".jmd"
     weave(tmp,out_path=html_path,doctype = "md2html")
-    weave(tmp,out_path=pdf_path,doctype="md2pdf"; template=latexfile)
-    Weave.convert_doc(tmp,joinpath(notebook_path,file)*".ipynb")
+    # weave(tmp,out_path=pdf_path,doctype="md2pdf"; template=latexfile)
+    # Weave.convert_doc(tmp,joinpath(notebook_path,file)*".ipynb")
 end
 
 function makeall(flist)
