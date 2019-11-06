@@ -14,10 +14,10 @@ i\hbar\partial_t\psi = (1-i\gamma)(L-\mu)\psi
 $$
 where the GP operator is defined as
 $$
-L\psi\equiv \left(-\frac{\hbar^2\nabla^2}{2m}+g|\psi|^2\right)\psi
+L\psi\equiv \left(-\frac{\hbar^2\nabla^2}{2m}+\frac{m}{2}\omega_\perp^2(x^2+y^2)+\frac{m}{2}\omega_z^2z^2+g|\psi|^2\right)\psi
 $$
 and as usual the S-wave interaction parameter is $g=4\pi\hbar^2 a/m$ for S-wave scattering
-lenght $a$.
+length $a$.
 
 The number $\gamma\ll 1$ describes irreversable interactons between condensate
 and noncondensate atoms, inducing condensate growth.
@@ -26,22 +26,17 @@ The initial condition for the field will be a complex random field with no conde
 and $\mu$ represents the chemical potential of the reservoir that $\psi$ will eventually come into equilibrium with.
 
 # Loading the package
-First, we load some useful packages.
-```julia
-using Plots, LaTeXStrings
-gr(titlefontsize=12,size=(500,300),transpose=true,colorbar=false);
-```
-Now load `FourierGPE`
+First load `FourierGPE`
 ```julia
 using FourierGPE
 ```
-In this example, we work in units of healing length and inverse chemical potential for length and time respectively.
+In this example, we work in trap units defined by $\omega_\perp$.
 We will also use [Makie](https://github.com/JuliaPlots/Makie.jl) to plot.
 
 # Set simulation parameters
 ```julia
-L=(16.,16.,16.)
-N=(64,64,64)
+L = (15.,15.,15.)
+N = (64,64,64)
 sim = Sim(L,N)
 @unpack_Sim sim;
 ```
@@ -49,14 +44,18 @@ sim = Sim(L,N)
 # Initialize simulation
 ```julia
 # parameters
-μ = 25.0
 γ = 0.05
-tf = 4/γ
+μ = 25.0
+tf = 1/γ
 Nt = 200
-t = LinRange(0.,tf,Nt);
+t = LinRange(0.,tf,Nt)
+
+# potential
+import FourierGPE.V
+V(x,y,z,t) = 0.5*(x^2 + y^2 + 4*z^2)
 ```
 
-The simulation will start from a random state with no condensate:
+The simulation will start from a random state:
 ```julia
 x,y,z = X
 ψi = randn(N)+im*randn(N)
@@ -67,35 +66,45 @@ x,y,z = X
 
 # Evolve in k space
 ```julia;eval=false
-sol = runsim(sim) # will take a few minutes to run.
+@time sol = runsim(sim); # will take a few minutes to run.
 ```
 
 # Density isosurface
 ```julia;eval=false
 using Makie, AbstractPlotting
 
-function dense(i)
-    ψm = xspace(sol[i],sim)
+function dense(phi)
+    ψm = xspace(phi,sim)
     density = abs2.(ψm)
     pmax = maximum(density)
     return density/pmax
 end
 
-function densityfilm(Nt,saveto="media/3dquenchtrap.gif")
-scene = Scene()
-tindex = Node(1)
+function densityfilm(sol,Nt;file="3dquenchtrap.gif")
+    saveto=joinpath("media",file)
+    scene = Scene()
+    tindex = Node(1)
+    scene = volume(lift(i -> dense(sol[i]), tindex),
+    algorithm = :iso,
+    color = (:mediumseagreen,0.25),
+    show_axis=false,
+    isovalue=3f0(.15))
 
-scene = volume(lift(i -> dense(i), tindex), algorithm = :iso,show_axis=false)
+    R = 70
+    eyepos = Vec3f0(R,R,R)
+    lookat = Vec3f0(18,18,0)
 
-record(scene, saveto, 1:Nt-10) do i
-    tindex[] = i
+    record(scene, saveto, 1:Nt) do i
+        update_cam!(scene, eyepos, lookat)
+        rotate_cam!(scene, 0., -0.25, 0.)
+        tindex[] = i
+    end
+    p = scene[end];
+    return
 end
-end
 
-densityfilm(Nt)
+p = densityfilm(sol,Nt,file="3dquenchtrap.gif")
+
 ```
-The order parameter becomes host to many sponteneously generated voretx lines and
-rings that eventually annihilate each other as the system approaches the quescent ground state.
-
 
 ![[animation (see media folder)]](../../media/3dquenchtrap.gif)
