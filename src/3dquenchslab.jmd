@@ -1,10 +1,10 @@
 ---
-title: Quench in a 2D slab
+title: Quench in a 3D system with 1D confinement
 author: Ashton Bradley
 ---
 
 # Introduction
-Quenching in 2D reveals the symmetry breaking inherent in the BEC phase transition.
+Quenching in 3D reveals the symmetry breaking inherent in the BEC phase transition.
 As the order parameter grows from thermal fluctuations, small phase coherent domains
 form locally, a spontaneous breaking of $U(1)$ symmetry.
 
@@ -14,157 +14,100 @@ i\hbar\partial_t\psi = (1-i\gamma)(L-\mu)\psi
 $$
 where the GP operator is defined as
 $$
-L\psi\equiv \left(-\frac{\hbar^2\nabla^2}{2m}+V(\mathbf{r})+g|\psi|^2\right)\psi
+L\psi\equiv \left(-\frac{\hbar^2\nabla^2}{2m}+\frac{m}{2}\omega_\perp^2(x^2+y^2)+\frac{m}{2}\omega_z^2z^2+g|\psi|^2\right)\psi
 $$
 and as usual the S-wave interaction parameter is $g=4\pi\hbar^2 a/m$ for S-wave scattering
-lenght $a$.
+length $a$.
 
-The trap is chosen to be cylindrically symmetric
-$$
-V(\mathbf{r})=\frac{m\omega_\perp^2}{2}(x^2 + y^2)
-$$
 The number $\gamma\ll 1$ describes irreversable interactons between condensate
 and noncondensate atoms, inducing condensate growth.
+
+The initial condition for the field will be a complex random field with no condensate,
+and $\mu$ represents the chemical potential of the reservoir that $\psi$ will eventually come into equilibrium with.
+
 # Loading the package
-First, we load some useful packages.
-```julia
-using Plots, LaTeXStrings, Pkg, Revise
-gr(titlefontsize=12,size=(500,300),transpose=true,colorbar=false)
-```
-Now load `FourierGPE`
+First load `FourierGPE`
 ```julia
 using FourierGPE
 ```
-In this example, we work in oscillator units. The units of length and time are
-$a_\perp=\sqrt{\hbar/m\omega_\perp}$ and $1/\omega_\perp$ respectively.
+In this example, we work in trap units defined by $\omega_\perp$.
+We will also use [Makie](https://github.com/JuliaPlots/Makie.jl) to plot.
 
-Let's add a convenient plot
-```julia
-function showpsi(x,y,ψ)
-    p1 = heatmap(x,y,abs2.(ψ),aspectratio=1)
-    xlabel!(L"x/a_x");ylabel!(L"y/a_y")
-    title!(L"|\psi|^2")
-    p2 = heatmap(x,y,angle.(ψ),aspectratio=1)
-    xlabel!(L"x/a_x");ylabel!(L"y/a_y")
-    title!(L"\textrm{phase}(\psi)")
-    p = plot(p1,p2,size=(600,300))
-    return p
-end
-```
-# Define user parameters
-```julia
-@with_kw mutable struct Params <: UserParams @deftype Float64
-    # user parameters:
-    κ = 0.1
-end
-par = Params();
-```
 # Set simulation parameters
 ```julia
-L = (20.0,20.0)
-N = (128,128)
-μ = 25.0
+L = (30.,30.,8.)
+N = (128,128,32)
+sim = Sim(L,N)
+@unpack_Sim sim;
 ```
 
 # Initialize simulation
 ```julia
-sim = Sim(L,N,par)
-@pack! sim = μ
-@unpack_Sim sim;
-```
-# Declare the potential function
-```julia
+# parameters
+γ = 0.05
+μ = 25.0
+tf = 2.5/γ
+Nt = 140
+t = LinRange(0.,tf,Nt)
+
+# potential
 import FourierGPE.V
-V(x,y,t)::Float64 = 0.5*(x^2 + y^2)
+V(x,y,z,t) = 4*z^2
 ```
-# Thomas-Fermi state
-```julia
-ψ0(x,y,μ,g) = sqrt(μ/g)*sqrt(max(1.0-V(x,y,0.0)/μ,0.0)+im*0.0)
-```
-# Make initial state
-```julia
-x,y = X
 
-ψi = ψ0.(x,y',μ,g)
+The simulation will start from a random state:
+```julia
+x,y,z = X
+ ψi = randn(N)+im*randn(N)
+# ψ0(x,y,z,μ,g) = sqrt(μ/g)*sqrt(max(1.0-V(x,y,z,0.0)/μ,0.0)+im*0.0)
+# ψi = ψ0.(x,y',reshape(z,1,1,length(z)),μ,g)
 ϕi = kspace(ψi,sim)
-@pack! sim = ϕi;
-```
-# Evolve in k space
-```julia
-sol = runsim(sim);
-```
-Let's pull out the ground state and take a look:
-```julia
-ϕg = sol[end]
-ψg = xspace(ϕg,sim)
-showpsi(x,y,ψg)
-```
-# Add a vortex off-axis
-We can use `VortexDistributions` to inprint a vortex off axis and test vortex precession.
-```julia
-using VortexDistributions
+
+@pack_Sim! sim;
 ```
 
-# Initial state
-We imprint a vortex inside Thomas-Fermi radius
-```julia
-healing(x,y,μ,g) = 1/sqrt(g*abs2(ψ0(x,y,μ,g)))
-Rtf = sqrt(2*μ)
-rv = 0.5*Rtf
-xv,yv,cv = rv, 0.0, 1
-initialvortex = [xv yv cv]
-ξv = healing(xv,yv,μ,g)
-ψv = copy(ψg)
-makeallvortices!(ψv,initialvortex,x,y,ξv)
-showpsi(x,y,ψv)
-```
-In the Thomas-Fermi regime, precession frequency is given analytically in terms of the
-healing length $\xi$ by (see Fetter JLTP 2010):
-$$
-\begin{align}
-\Omega_m &= \frac{3}{2R_{tf}^2}\log{\left(\frac{R_{tf}}{\xi\sqrt{2}}\right)}\\
-\Omega_v &= \frac{\Omega_m}{1-r_v^2/R_{tf}^2}
-\end{align}
-$$
-For our parameters this is
-```julia
-ξ = 1/sqrt(μ)
-Ωm = 3*log(Rtf/ξ/sqrt(2))/2/Rtf^2
-Ωv = Ωm/(1-rv^2/Rtf^2)
-```
-or a vortex precession period of
-```julia
-Tv = 2*π/Ωv
-```
-# Set simulation parameters
-Let's evolve for one period of Hamiltonian dynamics, as predicted by the Thomas-Fermi analysis:
-```julia
-γ = 0.0
-tf = Tv
-t = LinRange(ti,tf,Nt)
-ϕi = kspace(ψv,sim)
-@pack! sim = tf,t,γ,ϕi,reltol,alg
-@unpack_Sim sim;
-```
 # Evolve in k space
-```julia
-solv = runsim(sim);
-```
-Pull out a state after some evolution
-```julia
-ϕf = solv[100]
-ψf = xspace(ϕf,sim)
-showpsi(x,y,ψf)
-```
-We can trim the last few frames to show one orbit.
-The analytical result is within about $\sim 10\%$.
-```julia
-anim = @animate for i=1:Nt-6
-    ψ = xspace(solv[i],sim)
-    showpsi(x,y,ψ)
-end
-```
-And we can save the animation to file (see examples folder)
 ```julia;eval=false
-gif(anim,"./examples/vortex.gif",fps=30)
+@time sol = runsim(sim); # will take a few minutes to run.
 ```
+
+# Density isosurface
+```julia;eval=false
+using Makie, AbstractPlotting
+
+function dense(phi)
+    ψm = xspace(phi,sim)
+    density = abs2.(ψm)
+    pmax = maximum(density)
+    return density/pmax
+end
+
+function densityfilm(sol,Nt;file="3dquenchtrap.gif")
+    saveto=joinpath("media",file)
+    scene = Scene()
+    tindex = Node(1)
+    scene = volume(lift(i -> dense(sol[i]), tindex),
+    algorithm = :iso,
+    color = (:mediumseagreen,0.25),
+    show_axis=false,
+    isovalue=3f0(.15))
+
+    R = 210
+    eyeat = Vec3f0(R,R,0)
+    lookat = Vec3f0(0,0,-50)
+
+    record(scene, saveto, 1:Nt) do i
+        update_cam!(scene, eyeat, lookat)
+        rotate_cam!(scene, 0., -0.4, 0.)
+        tindex[] = i
+    end
+    p = scene[end];
+    return
+end
+
+p = densityfilm(sol,Nt,file="3dquenchslab.gif")
+
+```
+Here we show one frame of the resulting ~100MB animated .gif.
+
+![[animation (see media folder)]](../../media/3dquenchslab.png)
