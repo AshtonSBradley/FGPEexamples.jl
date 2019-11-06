@@ -194,8 +194,9 @@ end
 animpath = joinpath(@__DIR__,"media/soliton.gif")
 gif(anim,animpath,fps=30)
 ```
-<!-- The result is visible in the [media folder](../../media/soliton.gif) of this repository. -->
 
-![soliton](../../media/soliton.gif)
+![dark soliton (build locally)](../../media/soliton.gif)
+
+<img src="/media/soliton.gif" width="500" height="200">
 
 The dark soliton executes simple harmonic motion with amplitude determined by its depth.
