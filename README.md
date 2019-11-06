@@ -33,7 +33,7 @@ The frequency compares well with the analytical result.
 ## Quench in a 3D periodic box
 The same code will generate 3D, 2D, 1D systems (n-D is also available).
 
-Here a 3D quench from random initial conditions exhibits proliferation of vortices at short times giving way to eventual relaxation to the quiescent ground state.
+Here a [3D quench from random initial conditions](https://ashtonsbradley.github.io/FGPEexamples.jl/html/3dquenchiso.html) exhibits proliferation of vortices at short times giving way to eventual relaxation to the quiescent ground state.
 
 <img src="/media/3dquenchiso.gif" width="600" height="350">
 
