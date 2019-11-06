@@ -18,7 +18,7 @@ If we phase and density imprint a dark soliton onto a BEC in a harmonic trap, th
 
 In the [dark soliton example](https://ashtonsbradley.github.io/FGPEexamples.jl/html/1dharmonic.html) we find a ground state of a harmonic trap and the imprint a dark soliton in the trap center, observing simple harmonic motion:
 
-<img src="/media/soliton.gif" width="500" height="200"> 
+<img src="/media/darksoliton.gif" width="500" height="200"> 
 
 ## Vortex precession in a 2D harmonic trap
 
