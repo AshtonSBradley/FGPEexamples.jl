@@ -197,4 +197,4 @@ gif(anim,animpath,fps=30)
 
 The dark soliton executes simple harmonic motion with amplitude determined by its depth.
 
-![[dark soliton (build locally)]](../../media/soliton.gif)
+![[dark soliton (build locally to view)]](../../media/soliton.gif)
