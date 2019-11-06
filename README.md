@@ -18,7 +18,7 @@ If we phase and density imprint a dark soliton onto a BEC in a harmonic trap, th
 
 In the [dark soliton example](https://ashtonsbradley.github.io/FGPEexamples.jl/html/1dharmonic.html) we find a ground state of a harmonic trap and the imprint a dark soliton in the trap center, observing simple harmonic motion:
 
-<img src="/media/darksoliton.gif" width="500" height="200"> 
+<img src="/media/darksoliton.gif" width="500"> 
 
 ## Vortex precession in a 2D harmonic trap
 
@@ -35,10 +35,10 @@ The same code will generate 3D, 2D, 1D systems (n-D is also available).
 
 Here a [3D quench from random initial conditions](https://ashtonsbradley.github.io/FGPEexamples.jl/html/3dquenchiso.html) exhibits proliferation of vortices at short times giving way to eventual relaxation to the quiescent ground state.
 
-<img src="/media/3dquenchiso.gif" width="600" height="350">
+<img src="/media/3dquenchiso.gif" width="600">
 
 ## Quench in a 3D harmonic trap
 
-More experimentally relevant, a quench in an oblate 3D parabolic trap nucleates a quantum vortex aligned with the tight axis that eventually decays by migrating to the outer superfluid boundary. Physically, the dissipation is modelling coupling to a thermal cloud at rest in the laboratory frame. We can also observe the formation of a higher energy vortex aligned along the weak axis that damps out on a much shorter timescale.
+More experimentally relevant, a [quench in an oblate 3D parabolic trap](https://ashtonsbradley.github.io/FGPEexamples.jl/html/3dquenchtrap.html) nucleates a quantum vortex aligned with the tight axis that eventually decays by migrating to the outer superfluid boundary. Physically, the dissipation is modelling coupling to a thermal cloud at rest in the laboratory frame. We can also observe the formation of a higher energy vortex aligned along the weak axis that damps out on a much shorter timescale.
 
-<img src="/media/3dquenchtrap.gif" width="600" height="350">
+<img src="/media/3dquenchtrap.gif" width="600">
