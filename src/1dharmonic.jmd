@@ -195,7 +195,7 @@ animpath = joinpath(@__DIR__,"media/soliton.gif")
 gif(anim,animpath,fps=30)
 ```
 
-![dark soliton (build locally)](../../media/soliton.gif)
+![dark soliton (build locally to embed)](../../media/soliton.gif)
 
 <img src="/media/soliton.gif" width="500" height="200">
 
