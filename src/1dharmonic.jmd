@@ -196,6 +196,6 @@ gif(anim,animpath,fps=30)
 ```
 <!-- The result is visible in the [media folder](../../media/soliton.gif) of this repository. -->
 
-![soliton](https://ashtonsbradley.github.io/FGPEexamples.jl/media/soliton.gif)
+![soliton](../../media/soliton.gif)
 
 The dark soliton executes simple harmonic motion with amplitude determined by its depth.
