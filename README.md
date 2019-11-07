@@ -1,6 +1,13 @@
 # FGPEexamples.jl
 Simple examples of using the [FourierGPE](https://github.com/AshtonSBradley/FourierGPE.jl) library for solving the Gross-Piteavskii equation in julia.
 
+Please note that some of the larger media files are not tracked by this repository - you should run them locally by 
+
+```
+using Pkg;pkg"add https://github.com/AshtonSBradley/FGPEexamples.jl"
+```
+to generate the movies. 
+
 ## Bright soliton
 
 The bright soliton is an eigenstate of the GPE with attractive interactions.
@@ -48,7 +55,7 @@ More experimentally relevant, a [quench in an oblate 3D parabolic trap](https://
 
 A [3D quench into planar confinement](https://ashtonsbradley.github.io/FGPEexamples.jl/html/3dquenchslab.html) shows some of the rich dynamics as vortices are nucleated, interact with each other and with phonons, and decay. Download this repository and run the examples to see the Kibble-Zurek mechanism in action!
 
-<img src="/media/3dquenchslab.png" width="600">
+<img src="/media/3dquenchslab.gif" width="600">
 
 
 ## Quench in 3D into tube confinement
