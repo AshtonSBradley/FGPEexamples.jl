@@ -1,11 +1,19 @@
 # FGPEexamples.jl
 Simple examples of using the [FourierGPE](https://github.com/AshtonSBradley/FourierGPE.jl) library for solving the Gross-Piteavskii equation in julia.
 
-Please note that some of the larger media files are not tracked by this repository - you should run them locally by 
+Some of the larger media files are not tracked by this repository - you should run them locally by 
+
+```julia
+using Pkg;pkg"add https://github.com/AshtonSBradley/FGPEexamples.jl"
 
 ```
-using Pkg;pkg"add https://github.com/AshtonSBradley/FGPEexamples.jl"
+
+then, in the repository directory
+
+```julia
+include("./src/weaveall.jl")
 ```
+
 to generate the movies. 
 
 ## Bright soliton
