@@ -1,0 +1,120 @@
+---
+title: Quench in a 3D system with 2D confinement
+author: Ashton Bradley
+---
+
+# Introduction
+Quenching in 3D reveals the symmetry breaking inherent in the BEC phase transition.
+As the order parameter grows from thermal fluctuations, small phase coherent domains
+form locally, a spontaneous breaking of $U(1)$ symmetry.
+
+As simple model of this process, we start with the damped GPE
+$$
+i\hbar\partial_t\psi = (1-i\gamma)(L-\mu)\psi
+$$
+where the GP operator is defined as
+$$
+L\psi\equiv \left(-\frac{\hbar^2\nabla^2}{2m}+\frac{m}{2}\omega_z^2z^2+g|\psi|^2\right)\psi
+$$
+and as usual the S-wave interaction parameter is $g=4\pi\hbar^2 a/m$ for S-wave scattering
+length $a$.
+
+The number $\gamma\ll 1$ describes irreversable interactons between condensate
+and noncondensate atoms, inducing condensate growth.
+
+The initial condition for the field will be a complex random field with no condensate,
+and $\mu$ represents the chemical potential of the reservoir that $\psi$ will eventually come into equilibrium with.
+
+In this example, we work in units defined by the healing length $\xi = \hbar/m\sqrt{\mu}$. The dimensionless equiation of motion is
+$$
+i\partial_t\psi = (1-i\gamma)(L-\mu)\psi
+$$
+where the GP operator is defined as
+$$
+L\psi\equiv \left(-\frac{\nabla^2}{2}+\frac{1}{2}\lambda^2z^2+g|\psi|^2\right)\psi,
+$$
+and the potential we use is $\lambda=\sqrt{8}$.
+# Loading the package
+First load `FourierGPE`
+```julia
+using FourierGPE
+```
+
+# Set simulation parameters
+```julia
+L = (30.,8.,8.)
+N = (128,32,32)
+sim = Sim(L,N)
+@unpack_Sim sim;
+```
+
+# Initialize simulation
+```julia
+# parameters
+γ = 0.05
+μ = 25.0
+tf = 1/γ
+Nt = 200
+t = LinRange(0.,tf,Nt)
+
+# potential
+import FourierGPE.V
+V(x,y,z,t) = 30*(y^2+z^2)
+```
+
+The simulation will start from a random state:
+```julia
+x,y,z = X
+ ψi = randn(N)+im*randn(N)
+# ψ0(x,y,z,μ,g) = sqrt(μ/g)*sqrt(max(1.0-V(x,y,z,0.0)/μ,0.0)+im*0.0)
+# ψi = ψ0.(x,y',reshape(z,1,1,length(z)),μ,g)
+ϕi = kspace(ψi,sim)
+
+@pack_Sim! sim;
+```
+
+# Evolve in k space
+```julia
+@time sol = runsim(sim); # will take a few minutes to run.
+```
+
+# Density isosurface
+We will use [Makie](https://github.com/JuliaPlots/Makie.jl) to plot an isosurvace of $|\psi(\mathbf{r})|^2$.
+
+```julia
+using Makie, AbstractPlotting
+
+function dense(phi)
+    ψm = xspace(phi,sim)
+    density = abs2.(ψm)
+    pmax = maximum(density)
+    return density/pmax
+end
+
+function densityfilm(sol,Nt;file="3dquenchtrap.gif")
+    saveto=joinpath("media",file)
+    scene = Scene()
+    tindex = Node(1)
+    scene = volume(lift(i -> dense(sol[i]), tindex),
+    algorithm = :iso,
+    color = (:mediumseagreen,0.25),
+    show_axis=false,
+    isovalue=3f0(.15))
+
+    R = 180
+    eyeat = Vec3f0(R,R,0)
+    lookat = Vec3f0(0,0,-50)
+
+    record(scene, saveto, 1:Nt) do i
+        update_cam!(scene, eyeat, lookat)
+        rotate_cam!(scene, 0., -0.4, 0.)
+        tindex[] = i
+    end
+    p = scene[end];
+    return
+end
+
+p = densityfilm(sol,Nt,file="3dquenchtube.gif")
+```
+
+![[animation (see media folder)]](../../media/3dquenchtube.gif)
