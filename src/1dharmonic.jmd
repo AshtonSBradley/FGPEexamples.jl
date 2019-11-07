@@ -115,7 +115,7 @@ $\gamma=0.5$ which means we are going to find a ground state of the GPE.
 
 # Evolution in k-space
 The `FFTW` library is used to evolve the Gross-Pitaevskii equation in k-space
-```julia
+```julia 
 sol = runsim(sim);
 ```
 By default the solver returns all time slices specified by the `t` vector (`t=LinRange(ti,tf,Nt)`) and solution information in a single variable `sol`.
@@ -178,7 +178,7 @@ As before, we specify the initial condition in momentum space, and evolve
 
 ## View the solution using Plots
 Plots allows easy creation of an animated gif, as in the runnable example code below.
-```julia;eval=false 
+```julia;eval=false
 ϕf = sols[end-4]
 ψf = xspace(ϕf,simSoliton)
 showpsi(x,ψf)

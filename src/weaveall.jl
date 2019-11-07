@@ -9,7 +9,7 @@ html_path = joinpath(source_path,"../docs","html")
 pdf_path = joinpath(source_path,"../docs","pdf")
 notebook_path = joinpath(source_path,"../docs","notebooks")
 
-# flist = ["1dharmonic" "1dbrightsoliton" "2dharmonic" "3dquenchiso" "3dquenchtrap" "3dquenchslab" "jrsoliton"]
+# flist = ["1dharmonic" "1dbrightsoliton" "2dharmonic" "3dquenchiso" "3dquenchtrap" "3dquenchslab"] # "jrsoliton"]
 flist = ["3dquenchslab"]
 
 function weavedocs(file)
