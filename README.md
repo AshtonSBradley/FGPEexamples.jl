@@ -42,3 +42,10 @@ Here a [3D quench from random initial conditions](https://ashtonsbradley.github.
 More experimentally relevant, a [quench in an oblate 3D parabolic trap](https://ashtonsbradley.github.io/FGPEexamples.jl/html/3dquenchtrap.html) nucleates a quantum vortices preferentially aligned with the tight axis that eventually decay due to dissipation by migrating to the outer superfluid boundary. Physically, the dissipation is modelling coupling to a thermal cloud at rest in the laboratory frame. We can also observe the formation of a higher energy vortex aligned along the weak axis that damps out on a much shorter timescale.
 
 <img src="/media/3dquenchtrap.gif" width="600">
+
+
+## Quench in 3D with harmonic confinement along z
+
+A [3D quench into 1D parabolic confinement](https://ashtonsbradley.github.io/FGPEexamples.jl/html/3dquenchslab.html) shows some of the rich dynamics as vortices are nucleated, interact with each other and with phonons, and decay. Download this repository and run the examples to see the Kibble-Zurek mechanism in action!
+
+<img src="/media/3dquenchslab.png" width="600">
