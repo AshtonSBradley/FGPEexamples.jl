@@ -1,34 +1,34 @@
-# FGPEexamples.jl 
+# FGPEexamples.jl
 Simple examples of using the [FourierGPE](https://github.com/AshtonSBradley/FourierGPE.jl) library for solving the Gross-Piteavskii equation in julia.
 
 ## Bright soliton
 
-The bright soliton is an eigenstate of the GPE with attractive interactions. 
+The bright soliton is an eigenstate of the GPE with attractive interactions.
 
-The [bright soliton example](https://ashtonsbradley.github.io/FGPEexamples.jl/html/1dbrightsoliton.html) thus provides a simple test of periodicity for a Fourier method, and that the dispersion and interactions balance correctly. 
+The [bright soliton example](https://ashtonsbradley.github.io/FGPEexamples.jl/html/1dbrightsoliton.html) thus provides a simple test of periodicity for a Fourier method, and that the dispersion and interactions balance correctly.
 
-<img src="/media/brightsoliton.gif" width="600"> 
+<img src="/media/brightsoliton.gif" width="600">
 
 ## Dark Soliton
 
-A dark soliton is a non-trivial solution of the Gross-Piteavskii equation involving a localized density dip, and associated phase jump. 
-A moving dark soliton has depth related to its velocity. When the depth drops to zero, the velocity vanishes. 
+A dark soliton is a non-trivial solution of the Gross-Piteavskii equation involving a localized density dip, and associated phase jump.
+A moving dark soliton has depth related to its velocity. When the depth drops to zero, the velocity vanishes.
 
 If we phase and density imprint a dark soliton onto a BEC in a harmonic trap, the soliton position undergoes simple harmonic motion.
 
 In the [dark soliton example](https://ashtonsbradley.github.io/FGPEexamples.jl/html/1dharmonic.html) we find a ground state of a harmonic trap and the imprint a dark soliton in the trap center, observing simple harmonic motion:
 
-<img src="/media/darksoliton.gif" width="500"> 
+<img src="/media/darksoliton.gif" width="500">
 
 ## Vortex precession in a 2D harmonic trap
 
-A quantum vortex will precess at a frequency that is known analytically providing a simple test of both GPE evolution and vortex imprinting methods. 
+A quantum vortex will precess at a frequency that is known analytically providing a simple test of both GPE evolution and vortex imprinting methods.
 
 In the [vortex precession example](https://ashtonsbradley.github.io/FGPEexamples.jl/html/2dharmonic.html) we find a ground state, imprint a vortex, evolve in real time:
 
-<img src="/media/vortex.gif" width="500"> 
+<img src="/media/vortex.gif" width="500">
 
-The frequency compares well with the analytical result. 
+The frequency compares well with the analytical result.
 
 ## Quench in a 3D periodic box
 The same code will generate 3D, 2D, 1D systems (n-D is also available).

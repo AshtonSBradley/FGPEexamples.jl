@@ -3,4 +3,4 @@
 *.jl.mem
 deps/deps.jl
 .DS_Store
-3dquenchslab.gif
+3dquenchslab*.gif
