@@ -48,4 +48,4 @@ More experimentally relevant, a [quench in an oblate 3D parabolic trap](https://
 
 A [3D quench into 1D parabolic confinement](https://ashtonsbradley.github.io/FGPEexamples.jl/html/3dquenchslab.html) shows some of the rich dynamics as vortices are nucleated, interact with each other and with phonons, and decay. Download this repository and run the examples to see the Kibble-Zurek mechanism animation.
 
-<img src="/media/3dquenchslab.gif" width="600">
+<img src="/media/3dquenchslab.png" width="600">
