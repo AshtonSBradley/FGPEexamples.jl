@@ -44,8 +44,15 @@ More experimentally relevant, a [quench in an oblate 3D parabolic trap](https://
 <img src="/media/3dquenchtrap.gif" width="600">
 
 
-## Quench in 3D with harmonic confinement along z
+## Quench in 3D into planar confinement
 
-A [3D quench into 1D parabolic confinement](https://ashtonsbradley.github.io/FGPEexamples.jl/html/3dquenchslab.html) shows some of the rich dynamics as vortices are nucleated, interact with each other and with phonons, and decay. Download this repository and run the examples to see the Kibble-Zurek mechanism in action!
+A [3D quench into planar confinement](https://ashtonsbradley.github.io/FGPEexamples.jl/html/3dquenchslab.html) shows some of the rich dynamics as vortices are nucleated, interact with each other and with phonons, and decay. Download this repository and run the examples to see the Kibble-Zurek mechanism in action!
 
 <img src="/media/3dquenchslab.png" width="600">
+
+
+## Quench in 3D into tube confinement
+
+A [3D quench into tube confinement](https://ashtonsbradley.github.io/FGPEexamples.jl/html/3dquenchtube.html) reveals how much more fragile the lower dimensional excitations are. Without the topological stability of vortices, dark solitons are free to decay. The stable remnant of the phase transition in this case is a persistent current. 
+
+<img src="/media/3dquenchtube.gif" width="600">
