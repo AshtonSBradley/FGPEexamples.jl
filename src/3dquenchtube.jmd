@@ -8,13 +8,18 @@ Quenching in 3D reveals the symmetry breaking inherent in the BEC phase transiti
 As the order parameter grows from thermal fluctuations, small phase coherent domains
 form locally, a spontaneous breaking of $U(1)$ symmetry.
 
+The resulting defects emerging from the Kibble-Zurek mechanism depend on geometry. In this example
+we see what happens in an oblate system. Unlike the planar confinement scenario that traps quantum vortices,
+in 1D the expected defects are dark solitons, and eventually, a persistent current. The persistent current necessarily has zero winding on average
+as the thermal cloud is stationary in the lab frame.
+
 As simple model of this process, we start with the damped GPE
 $$
 i\hbar\partial_t\psi = (1-i\gamma)(L-\mu)\psi
 $$
 where the GP operator is defined as
 $$
-L\psi\equiv \left(-\frac{\hbar^2\nabla^2}{2m}+\frac{m}{2}\omega_z^2z^2+g|\psi|^2\right)\psi
+L\psi\equiv \left(-\frac{\hbar^2\nabla^2}{2m}+\frac{m}{2}\omega_\perp^2(y^2+z^2)+g|\psi|^2\right)\psi
 $$
 and as usual the S-wave interaction parameter is $g=4\pi\hbar^2 a/m$ for S-wave scattering
 length $a$.
@@ -25,13 +30,13 @@ and noncondensate atoms, inducing condensate growth.
 The initial condition for the field will be a complex random field with no condensate,
 and $\mu$ represents the chemical potential of the reservoir that $\psi$ will eventually come into equilibrium with.
 
-In this example, we work in units defined by the healing length $\xi = \hbar/m\sqrt{\mu}$. The dimensionless equiation of motion is
+In this example, we work in units defined by the healing length $\xi = \hbar/m\sqrt{\mu}$. The dimensionless equation of motion is
 $$
 i\partial_t\psi = (1-i\gamma)(L-\mu)\psi
 $$
 where the GP operator is defined as
 $$
-L\psi\equiv \left(-\frac{\nabla^2}{2}+\frac{1}{2}\lambda^2z^2+g|\psi|^2\right)\psi,
+L\psi\equiv \left(-\frac{\nabla^2}{2}+\frac{1}{2}\lambda^2(y^2+z^2)+g|\psi|^2\right)\psi,
 $$
 and the potential we use is $\lambda=\sqrt{8}$.
 # Loading the package
