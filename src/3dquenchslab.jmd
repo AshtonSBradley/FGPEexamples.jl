@@ -116,8 +116,6 @@ function densityfilm(sol,Nt;file="3dquenchtrap.gif")
 end
 
 p = densityfilm(sol,Nt,file="3dquenchslab.gif")
-
 ```
-Here we show one frame of the resulting ~100MB animated .gif.
 
-![[animation (see media folder)]](../../media/3dquenchslab.png)
+![[animation (see media folder)]](../../media/3dquenchslab.gif)
