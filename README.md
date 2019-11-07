@@ -14,7 +14,7 @@ then, in the repository directory
 include("./src/weaveall.jl")
 ```
 
-to generate the movies. 
+to run all examples. The chosen output (html by default, but also pdf, ipynb) will be generated in the `docs` directory.
 
 ## Bright soliton
 
