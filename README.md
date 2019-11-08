@@ -77,4 +77,4 @@ A [3D quench into planar confinement](https://ashtonsbradley.github.io/FGPEexamp
 
 A [3D quench into tube confinement](https://ashtonsbradley.github.io/FGPEexamples.jl/html/3dquenchtube.html) reveals how much more fragile the lower dimensional excitations are. Without the topological stability of vortices, dark solitons are free to decay. The stable remnant of the phase transition in this case is a persistent current. 
 
-<img src="/media/3dquenchtube.gif" width="700">
+<img src="/media/3dquenchtube.gif" width="900">
