@@ -12,7 +12,7 @@ sim = Sim(L,N)
 γ = 0.05
 μ = 25.0
 tf = 2.5/γ
-Nt = 140
+Nt = 200
 t = LinRange(0.,tf,Nt)
 
 # potential
@@ -63,4 +63,4 @@ function densityfilm(sol,Nt;file="3dquenchtrap.gif")
     return
 end
 
-p = densityfilm(sol,Nt,file="3dquenchslab.gif")
+p = densityfilm(sol,Nt,file="3dquenchslab3.gif")
