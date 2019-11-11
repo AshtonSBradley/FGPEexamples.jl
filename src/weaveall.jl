@@ -1,6 +1,9 @@
 using Pkg, Weave
 pkg"activate ."
 
+@info "Weaving all documents (will take a few minutes)... "
+sleep(2)
+
 cssfile = joinpath(@__DIR__,"templates","skeleton_css.css")
 latexfile = joinpath(@__DIR__, "../docs", "templates", "julia_tex.tpl")
 
@@ -9,8 +12,7 @@ html_path = joinpath(source_path,"../docs","html")
 pdf_path = joinpath(source_path,"../docs","pdf")
 notebook_path = joinpath(source_path,"../docs","notebooks")
 
-# flist = ["1dharmonic" "1dbrightsoliton" "2dharmonic" "3dquenchiso" "3dquenchtrap" "3dquenchslab" "3dquenchtube"] # "jrsoliton"]
-flist = ["1dbrightsoliton"]
+flist = ["1dharmonic" "1dbrightsoliton" "2dharmonic" "3dquenchiso" "3dquenchtrap" "3dquenchslab" "3dquenchtube"] # "jrsoliton"]
 
 function weavedocs(file)
     tmp = joinpath(source_path,file)*".jmd"

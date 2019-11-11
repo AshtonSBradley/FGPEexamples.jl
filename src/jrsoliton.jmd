@@ -98,7 +98,7 @@ We can trim the last few frames to show one orbit
 anim = @animate for i=1:Nt-6
     ψ = xspace(solv[i],sim)
     showpsi(x,y,ψ)
-end;
+end
 ```
 and save the animation to the [media folder](../../media/jrsoliton.gif)
 ```julia

@@ -65,12 +65,12 @@ x,y,z = X
 ```
 
 # Evolve in k space
-```julia;eval=false
+```julia
 @time sol = runsim(sim); # will take a few minutes to run.
 ```
 
 # Density isosurface
-```julia;eval=false
+```julia
 using Makie, AbstractPlotting
 
 function dense(phi)

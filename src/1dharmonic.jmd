@@ -80,7 +80,7 @@ The initial state is now created on the grid and all modified variables are scoo
 The source code defining the simulation type `Sim` sets the default values and
 also has some further explanation of each variable:
 
-```julia;eval=false
+```julia
 @with_kw mutable struct Sim{D} <: Simulation{D} @deftype Float64
     # Add more parameters as necessary, or add to params (see examples)
     L::NTuple{D,Float64} # box length scales
@@ -178,7 +178,7 @@ As before, we specify the initial condition in momentum space, and evolve
 
 ## View the solution using Plots
 Plots allows easy creation of an animated gif, as in the runnable example code below.
-```julia;eval=false
+```julia
 ϕf = sols[end-4]
 ψf = xspace(ϕf,simSoliton)
 showpsi(x,ψf)
