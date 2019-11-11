@@ -134,14 +134,13 @@ Pull out a state after some evolution
 showpsi(x,y,ψf)
 ```
 We can trim the last few frames to show one orbit
-```julia
+```julia;eval=false
 anim = @animate for i=1:Nt-6
     ψ = xspace(solv[i],sim)
     showpsi(x,y,ψ)
-end;
-```
-```julia;eval=false
-gif(anim,"./media/vortex.gif",fps=30)
+end
+filename = "vortex.gif"
+gif(anim,joinpath(@__DIR__,"media",filename),fps=30);
 ```
 ![[animation (see media folder)]](../../media/vortex.gif)
 

@@ -115,7 +115,7 @@ $\gamma=0.5$ which means we are going to find a ground state of the GPE.
 
 # Evolution in k-space
 The `FFTW` library is used to evolve the Gross-Pitaevskii equation in k-space
-```julia 
+```julia
 sol = runsim(sim);
 ```
 By default the solver returns all time slices specified by the `t` vector (`t=LinRange(ti,tf,Nt)`) and solution information in a single variable `sol`.
@@ -191,8 +191,8 @@ anim = @animate for i in 1:length(t)-4 #make it periodic by ending early
     title!(L"\textrm{local}\; \mu(x)")
     xlabel!(L"x/a_x"); ylabel!(L"\mu(x)/\hbar\omega_x")
 end
-animpath = joinpath(@__DIR__,"media/darksoliton.gif")
-gif(anim,animpath,fps=30)
+filename = "darksoliton.gif"
+gif(anim,joinpath(@__DIR__,"media",filename),fps=30);
 ```
 
 The dark soliton executes simple harmonic motion with amplitude determined by its depth.

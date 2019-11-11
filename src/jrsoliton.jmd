@@ -102,6 +102,7 @@ end;
 ```
 and save the animation to the [media folder](../../media/jrsoliton.gif)
 ```julia
-gif(anim,"./media/jrsoliton.gif",fps=30)
+filename = "jrsoliton.gif"
+gif(anim,joinpath(@__DIR__,"media",filename),fps=30);
 ```
 discuss...
