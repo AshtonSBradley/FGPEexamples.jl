@@ -69,4 +69,4 @@ A [3D quench into tube confinement](https://ashtonsbradley.github.io/FGPEexample
 
 ## Jones-Roberts soliton evolving in 2D
 
-<img src="/media/jrsoliton.gif" width="600">
+<img src="/media/jrsoliton.gif" width="400">
