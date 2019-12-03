@@ -670,18 +670,18 @@ i\hbar\partial_t\psi = (1-i\gamma)(L-\mu)\psi
 \]</p>
 <p>where the GP operator is defined as</p>
 <p class="math">\[
-L\psi\equiv \left(-\frac{\hbar^2\nabla^2}{2m}+\frac{m}{2}\omega_z^2z^2+g|\psi|^2\right)\psi
+L\psi\equiv \left(-\frac{\hbar^2\nabla^2}{2m}+\frac{m}{2}\omega_\perp^2(y^2+z^2)+g|\psi|^2\right)\psi
 \]</p>
 <p>and as usual the S-wave interaction parameter is <span class="math">$g=4\pi\hbar^2 a/m$</span> for S-wave scattering length <span class="math">$a$</span>.</p>
 <p>The number <span class="math">$\gamma\ll 1$</span> describes irreversable interactons between condensate and noncondensate atoms, inducing condensate growth.</p>
 <p>The initial condition for the field will be a complex random field with no condensate, and <span class="math">$\mu$</span> represents the chemical potential of the reservoir that <span class="math">$\psi$</span> will eventually come into equilibrium with.</p>
-<p>In this example, we work in units defined by the healing length <span class="math">$\xi = \hbar/m\sqrt{\mu}$</span>. The dimensionless equiation of motion is</p>
+<p>In this example, we work in units defined by the healing length <span class="math">$\xi = \hbar/m\sqrt{\mu}$</span>. The dimensionless equation of motion is</p>
 <p class="math">\[
 i\partial_t\psi = (1-i\gamma)(L-\mu)\psi
 \]</p>
 <p>where the GP operator is defined as</p>
 <p class="math">\[
-L\psi\equiv \left(-\frac{\nabla^2}{2}+\frac{1}{2}\lambda^2z^2+g|\psi|^2\right)\psi,
+L\psi\equiv \left(-\frac{\nabla^2}{2}+\frac{1}{2}\lambda^2(y^2+z^2)+g|\psi|^2\right)\psi,
 \]</p>
 <p>and the potential we use is <span class="math">$\lambda=\sqrt{8}$</span>.</p>
 <h1>Loading the package</h1>
@@ -752,7 +752,7 @@ V &#40;generic function with 3 methods&#41;
 
 
 <pre class="output">
-144.295943 seconds &#40;64.61 M allocations: 4.476 GiB, 0.74&#37; gc time&#41;
+158.148290 seconds &#40;39.92 M allocations: 3.203 GiB, 1.25&#37; gc time&#41;
 </pre>
 
 
@@ -806,7 +806,7 @@ V &#40;generic function with 3 methods&#41;
           <div class="footer"><p>
           Published from <a href="3dquenchtube.jmd">3dquenchtube.jmd</a> using
           <a href="http://github.com/mpastell/Weave.jl">Weave.jl</a>
-           on 2019-11-08.
+           on 2019-12-03.
           <p></div>
 
 

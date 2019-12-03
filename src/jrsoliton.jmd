@@ -1,12 +1,13 @@
 ---
-title: Jones-Roberts soliton motion in a homogeneous BEC
+title: Motion of a Jones-Roberts soliton in a homogeneous BEC
 author: Sukla Pal
 ---
 
 # Introduction
-In this example we simulate the precession of a single quantum vortex in a harmonic trap, and compare with the analytical result found by Fetter.
+In this example we simulate the dynamics of Jones-Robert soliton (JRs) in homogeneous system (without trap). We imprint a JRs density and phase profile
+according to [S. Tsuchiya et al. (J Low Temp Phys (2007) 148: 393-398)](http://dx.doi.org/10.1007/s10909-007-9400-3).
 
-As simple model of this process, we start with the damped GPE
+As simple model of this process, we start with damped GPE
 $$
 i\hbar\partial_t\psi = (1-i\gamma)(L-\mu)\psi
 $$
@@ -17,7 +18,7 @@ $$
 and as usual the S-wave interaction parameter is $g=4\pi\hbar^2 a/m$ for S-wave scattering
 lenght $a$.
 
-The trap is chosen to be trivial
+Condition of no trapping is set by
 $$
 V(\mathbf{r})=0
 $$
@@ -27,21 +28,30 @@ and noncondensate atoms, inducing condensate growth.
 # Loading the package
 First, we load some useful packages, setting defaults for `Plots`.
 ```julia
-using Plots, LaTeXStrings
-gr(titlefontsize=12,size=(500,300),transpose=true,colorbar=false)
+using Plots, LaTeXStrings, Pkg, Revise
+gr(titlefontsize=12,size=(500,300),transpose=true,colorbar=false);
 ```
 Now load `FourierGPE`
 ```julia
 using FourierGPE
 ```
-In this example, we work in oscillator units. The units of length and time are
-$a_\perp=\sqrt{\hbar/m\omega_\perp}$ and $1/\omega_\perp$ respectively.
+In this example, we work in special units where we consider dimensionless variable
+$\tilde{x} = x/\xi$ and $\tilde{t} = t/\tau$, wherethe units of length and time are
+$\xi = \hbar/\sqrt{2mgn}$ and $\tau = m\xi^2/\hbar$ respectively. For a homogeneous
+field chemical potential $\mu = gn$ and the normalised order parameter
+$\tilde{\psi} = \sqrt{n}\psi$ is considered. Accordingly, the dimensionless Gross Pitaevskii equation
+turns out to be
+$$
+i\frac{\partial \psi}{\partial t}=\left[-\frac{\partial_x^2}{2}+ \frac{1}{2}(|\psi|^2-1)\right]\psi
+$$
+To be consistent with the above mentioned damped GPE mentioned above we set $g = 0.5$ and $\mu = 0.5$ in our numerical simulation.
+JRS is the eigenstate of homogeneous system for which we consider a big rectangular box
 
 # Initialize simulation
 Initialize default sim with domain and grid parameters
 ```julia
-L = (20.0,20.0)
-N = (128,128)
+L = (400.0,200.0)
+N = (512,256)
 sim = Sim(L,N)
 @unpack_Sim sim;
 ```
@@ -49,60 +59,126 @@ sim = Sim(L,N)
 # Declare the potential
 ```julia
 import FourierGPE.V
-V(x,y,t)::Float64 = 0.0
+V(x,y,t)::Float64 = zero(x*y);
 ```
 
 # Thomas-Fermi initial state
 ```julia
-ψ0(x,y,μ,g) = sqrt(μ/g)*sqrt(max(1.0-V(x,y,0.0)/μ,0.0)+im*0.0)
+μ = 0.5
+g = 0.5
+ψ0(x,y,μ,g) = sqrt(μ/g)*sqrt(max(1.0-V(x,y,0.0),0.0)+im*0.0)
 x,y = X
 
-μ = 25.0
 ψi = ψ0.(x,y',μ,g)
 ϕi = kspace(ψi,sim)
 @pack_Sim! sim;
 ```
 # Imaginary-time evolution in k space
+The `FFTW` library is used to evolve the Gross-Pitaevskii equation in k-space
 ```julia
 @time sol = runsim(sim);
 ```
-Let's pull out the final state and verify that it is indeed the ground state of the harmonic trap:
+By default the solver returns all time slices specified by the `t` vector (`t=LinRange(ti,tf,Nt)`) and solution information in a single variable `sol`.
+
+Let's pull out the final state and verify that it is indeed the
+ground state of homogeneous system
 ```julia
 ϕg = sol[end]
 ψg = xspace(ϕg,sim)
-showpsi(x,y,ψg)
+ψv = copy(ψg);
+p1=heatmap(x,y,abs2.(ψv),aspectratio=1,colorbar = true, xlim=(-200,200),ylim=(-100,100))
+title!(L"|\psi|^2")
+xlabel!(L"x/\xi"); ylabel!(L"y/\xi")
+p2=heatmap(x,y,angle.(ψv),aspectratio=1,colorbar = true, xlim=(-200,200),ylim=(-100,100))
+title!("Phase")
+xlabel!(L"x/\xi"); ylabel!(L"y/\xi")
+plot(p1,p2,size=(1000,300))
+```
+# Imprint Jones-Roberts soliton
+We imprint the density and phase of a JR-soliton at origin using the [analytical solution](https://journals.aps.org/pra/pdf/10.1103/PhysRevA.77.045601)
+
+```julia
+ρs(x,y)::Float64 = 4*((1.5+((ϵ^2*y)^2)-(ϵ*(x))^2)/(1.5+((ϵ^2*y)^2)+(ϵ*(x))^2)^2);
+ϕs(x,y)::Float64 = 4*ϵ*(x)/(1.5+((ϵ^2*y)^2)+(ϵ*(x))^2);
+```
+We need to choose the velocity of the JRS close to sound velocity $c$ for which we select one of the $k_x$ value of the problem.
+For this example we choose the soliton velocity $v_s \approx 0.85c$. The perturbation parameter
+$\epsilon = \sqrt{1-(v_s/c)^2}$ for a JR soliton moving with speed $v_s$. We will make a JR soliton moving along the positive $x$ axis.
+
+
+```julia
+kx,ky = K
+vs = kx[60]
+ϵ = sqrt(1-vs^2);ϵ2 = (1-vs^2);
 ```
 
-# Imprint Jones-Roberts soliton
-We imprint a JR-soliton using the [analytical solution](https://dx.doi.org/)
+Imprint JRS following the analytical solution and transform back it
+into lab frame (Frame of damped GPE we are solving)
 
+```julia
+S = -1/sqrt(2)*ϕs.(x,y');
+ψjr =  ψv.*sqrt.(ones(size(x)[1],size(y)[1])-ϵ2*ρs.(x,y')).*exp.(ϵ*S*im);
+ψjr_lab = ψjr.*exp.(im*vs*x);
+ψv = copy(ψjr_lab);
+```
+The imprinted solution looks like
+
+```julia
+p1 = contour(x.*ϵ, y.*ϵ2, abs2.(ψjr),fill=true,c=c1,aspectratio = 1.0, colorbar = true,xlim = (-10,10), ylim = (-10,10),title=L"|\psi(x,y)|^2")
+xlabel!(L"x/\epsilon");ylabel!(L"y/\epsilon^2")
+p2 = contour(x.*ϵ, y.*ϵ2, angle.(ψjr),fill=true,c=c2,aspectratio = 1.0, colorbar = true,xlim = (-10,10), ylim = (-10,10),title=L"S(x,y)")
+plot(p1,p2,size=(1000,300))
+```
+# Imprinted ground state density profile
+The ground state after imprinting
+```julia
+heatmap(x,y,abs2.(ψjr), aspectratio = 1, colorbar = true, ylim = (-100,100))
+```
 # Set simulation parameters
-Let's evolve for one period of Hamiltonian dynamics, as predicted by the Thomas-Fermi analysis:
+Let's evolve the solution according to Hamiltonian dynamics for long time:
 ```julia
 γ = 0.0
-ϕi = kspace(ψg,sim)
+tf = 50
+Nt = 200
+t = LinRange(ti,tf,Nt)
+ϕi = kspace(ψv,sim)
+reltol = 1e-7
+alg = DP5()
 @pack_Sim! sim; # write over previous sim  and reuse
 ```
 # Evolve in k space
 ```julia
 solv = runsim(sim);
 ```
-Pull out a state after some evolution
+We construct a function for better visuatlisation of the problem
+
 ```julia
-ϕf = solv[100]
-ψf = xspace(ϕf,sim)
-showpsi(x,y,ψf)
-```
-We can trim the last few frames to show one orbit
-```julia
-anim = @animate for i=1:Nt-6
-    ψ = xspace(solv[i],sim)
-    showpsi(x,y,ψ)
+function showJR(x,y,ψ)
+    p1 = heatmap(x,y,abs2.(ψ),aspectratio=1,colorbar = true,clim = (), xlim = (-200,200), ylim=(-100,100))
+    xlabel!(L"x/\xi");ylabel!(L"y/\xi")
+    title!(L"|\psi|^2\xi^2")
+    p = plot(p1,size=(600,300))
+    return p
 end
 ```
-and save the animation to the [media folder](../../media/jrsoliton.gif)
+Pull out a state after some evolution
 ```julia
-filename = "jrsoliton.gif"
-gif(anim,joinpath(@__DIR__,"media",filename),fps=30);
+ϕf = solv[100];
+ψf = xspace(ϕf,sim);
+showJR(x,y,ψf)
 ```
-discuss...
+Let's see the animated motion
+```julia
+anim = @animate for i=1:Nt;
+    ψ = xspace(solv[i],sim);
+    showJR(x,y,ψ);
+end;
+```
+and save the animation to the [media folder]
+```julia
+filename = "jrsoliton.gif";
+gif(anim,joinpath(@__DIR__,"media",filename),fps=20);
+```
+JRS shows shape invariant motion
+
+![[animation (see media folder)]](../../media/jrsoliton.gif)

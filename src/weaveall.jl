@@ -1,7 +1,7 @@
 using Pkg, Weave
 pkg"activate ."
 
-@info "Weaving all documents (will take a few minutes)... "
+@warn "Weaving all documents (will take a few minutes)... "
 sleep(2)
 
 cssfile = joinpath(@__DIR__,"templates","skeleton_css.css")
@@ -12,7 +12,10 @@ html_path = joinpath(source_path,"../docs","html")
 pdf_path = joinpath(source_path,"../docs","pdf")
 notebook_path = joinpath(source_path,"../docs","notebooks")
 
-flist = ["1dharmonic" "1dbrightsoliton" "2dharmonic" "3dquenchiso" "3dquenchtrap" "3dquenchslab" "3dquenchtube"] # "jrsoliton"]
+#=
+filelist = ["1dharmonic" "1dbrightsoliton" "2dharmonic" "3dquenchiso" "3dquenchtrap" "3dquenchslab" "3dquenchtube" "jrsoliton"]
+=#
+flist = ["jrsoliton" ]
 
 function weavedocs(file)
     tmp = joinpath(source_path,file)*".jmd"
@@ -22,7 +25,8 @@ function weavedocs(file)
 end
 
 function makeall(flist)
-for file ∈ flist
+for file in flist
+    @info "Weaving example "*file
     weavedocs(file)
 end
 end
