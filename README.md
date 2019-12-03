@@ -68,5 +68,6 @@ A [3D quench into tube confinement](https://ashtonsbradley.github.io/FGPEexample
 <img src="/media/3dquenchtube.gif" width="900">
 
 ## Jones-Roberts soliton evolving in 2D
+The JR-soliton is a quasisolitonic solution of the repulsive GPE. [In this example](https://ashtonsbradley.github.io/FGPEexamples.jl/html/jrsoliton.html) it can be seen propagating without change of shape
 
-<img src="/media/jrsoliton.gif" width="400">
+<img src="/media/jrsoliton.gif" width="600">
