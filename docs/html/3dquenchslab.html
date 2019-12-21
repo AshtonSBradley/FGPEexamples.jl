@@ -745,15 +745,18 @@ V &#40;generic function with 3 methods&#41;
 <h1>Evolve in k space</h1>
 
 
-
 <pre class='hljl'>
 <span class='hljl-nd'>@time</span><span class='hljl-t'> </span><span class='hljl-n'>sol</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>runsim</span><span class='hljl-p'>(</span><span class='hljl-n'>sim</span><span class='hljl-p'>);</span><span class='hljl-t'> </span><span class='hljl-cs'># will take a few minutes to run.</span>
 </pre>
 
 
+<pre class="output">
+376.710973 seconds &#40;58.12 M allocations: 4.594 GiB, 0.66&#37; gc time&#41;
+</pre>
+
+
 <h1>Density isosurface</h1>
 <p>We will use <a href="https://github.com/JuliaPlots/Makie.jl">Makie</a> to plot an isosurvace of <span class="math">$|\psi(\mathbf{r})|^2$</span>.</p>
-
 
 
 <pre class='hljl'>
@@ -793,6 +796,11 @@ V &#40;generic function with 3 methods&#41;
 </pre>
 
 
+<pre class="julia-error">
+ERROR: Video type .png not known
+</pre>
+
+
 <p><img src="../../media/3dquenchslab.gif" alt="&#91;animation &#40;see media folder&#41;&#93;" /></p>
 
 
@@ -801,7 +809,7 @@ V &#40;generic function with 3 methods&#41;
           <div class="footer"><p>
           Published from <a href="3dquenchslab.jmd">3dquenchslab.jmd</a> using
           <a href="http://github.com/mpastell/Weave.jl">Weave.jl</a>
-           on 2019-11-08.
+           on 2019-12-03.
           <p></div>
 
 

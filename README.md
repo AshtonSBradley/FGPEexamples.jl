@@ -1,25 +1,13 @@
 # FGPEexamples.jl
 Simple examples of using the [FourierGPE](https://github.com/AshtonSBradley/FourierGPE.jl) library for solving the Gross-Piteavskii equation in julia.
 
-Some of the larger media files are not tracked by this repository. To run them locally, first 
+Some of the larger media files are not tracked by this repository. To run them locally, first
 
 ```julia
-using Pkg;pkg"add https://github.com/AshtonSBradley/FGPEexamples.jl"
+git clone https://github.com/AshtonSBradley/FGPEexamples.jl
 ```
 
-then edit `/src/weaveall.jl` to choose which examples to run (by defaults runs all in `flist`, will take ~15 minutes), and which output to generate (`html` by default, but also `.pdf`, `.ipynb` can be enabled). Note you will also need to remove some `eval=false` statements to make compute-intesive cells evaluate. 
-
-Then either
-
-```julia
-using FGPEexamples
-```
-
-or from the repo directory
-
-```julia
-include("./src/weaveall.jl")
-```
+then edit `/src/weaveall.jl` to choose which examples to run (by defaults runs all in `flist`, will take ~15 minutes), and which output to generate (`html` by default, but also `.pdf`, `.ipynb` can be enabled).  
 
 The chosen output  will be generated in the `docs` directory.
 
@@ -75,6 +63,11 @@ A [3D quench into planar confinement](https://ashtonsbradley.github.io/FGPEexamp
 
 ## Quench in 3D into tube confinement
 
-A [3D quench into tube confinement](https://ashtonsbradley.github.io/FGPEexamples.jl/html/3dquenchtube.html) reveals how much more fragile the lower dimensional excitations are. Without the topological stability of vortices, dark solitons are free to decay. The stable remnant of the phase transition in this case is a persistent current. 
+A [3D quench into tube confinement](https://ashtonsbradley.github.io/FGPEexamples.jl/html/3dquenchtube.html) reveals how much more fragile the lower dimensional excitations are. Without the topological stability of vortices, dark solitons are free to decay. The stable remnant of the phase transition in this case is a persistent current.
 
 <img src="/media/3dquenchtube.gif" width="900">
+
+## Jones-Roberts soliton evolving in 2D
+The JR-soliton is a quasisolitonic solution of the repulsive GPE. [In this example](https://ashtonsbradley.github.io/FGPEexamples.jl/html/jrsoliton.html) it can be seen propagating without change of shape
+
+<img src="/media/jrsoliton.gif" width="600">
