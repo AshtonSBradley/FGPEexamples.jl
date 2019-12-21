@@ -1,0 +1,67 @@
+---
+title: Bright soliton - periodic time evolution
+author: Ashton Bradley
+---
+# Introduction
+The term soliton is usually reserved for shape invariant pulses that can withstand
+collision with each other.
+
+# Simulation
+```julia
+using Plots, LaTeXStrings
+gr(colorbar=false,size=(600,150),legend=false,grid=false)
+using FourierGPE
+```
+## Initialize simulation
+```julia
+L = (40.0,)
+N = (2048,)
+sim = Sim(L,N)
+@unpack_Sim sim;
+```
+## Simulation parameters
+```julia
+μ = 25.0 #no role here
+γ = 0.0
+g = -1.0
+n = 5.0
+tf = pi/2
+Nt = 200
+ti = 0.0
+t = LinRange(ti,tf,Nt);
+```
+
+## Soliton wavefunction
+```julia
+x = X[1]
+ψs(x) = n*sech(x)
+ψi = ψs.(x)
+plot(x,abs2.(ψi),lw=10,alpha=0.5)
+ϕi = kspace(ψi,sim)
+
+# Set all fields
+@pack_Sim! sim
+
+# Evolve in k space
+@time sol = runsim(sim);
+```
+# Plot
+```julia
+plot(x,abs2.(ψi),lw=3,c=:red)
+y = abs2.(xspace(sol[Nt],sim))
+plot!(x,y,lw=3,c=c3,fill=(0, 0.4,c3))
+xlims!(-5,5)
+```
+# Animation
+```julia
+anim = @animate for i=1:Nt
+    ψ = xspace(sol[i],sim)
+    y = abs2.(ψ)
+    plot(x,y,c=c3,fill=(0, 0.4,c3),size=(400,300),xticks=false,yticks=false,axis=false)
+    xlims!(-2.2,2.2)
+    ylims!(0,220)
+end
+filename = "periodic_soliton.gif"
+gif(anim,joinpath(@__DIR__,"media",filename),fps=25);
+```
+![[animation (see media folder)]](../../media/periodic_soliton.gif)
