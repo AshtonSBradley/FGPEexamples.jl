@@ -1,6 +1,7 @@
 *.jl.cov
 *.jl.*.cov
 *.jl.mem
+Manifest.toml
 deps/deps.jl
 .DS_Store
 3dquenchslab*.gif
