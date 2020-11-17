@@ -631,7 +631,7 @@ kbd,
 pre,
 samp {
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  font-size: 13px;
+  font-size: 0.9em;
 }
 
 
@@ -646,22 +646,19 @@ img {max-width : 100%}
 div.title {text-align: center;}
 
   </style>
-
-
-
 </HEAD>
-  <BODY>
-    <div class ="container">
-      <div class = "row">
-        <div class = "col-md-12 twelve columns">
 
-          <div class="title">
-            <h1 class="title">Quench in a 3D system with 1D confinement</h1>
-            <h5>Ashton Bradley</h5>
-            
-          </div>
+<BODY>
+  <div class ="container">
+    <div class = "row">
+      <div class = "col-md-12 twelve columns">
+        <div class="title">
+          <h1 class="title">Quench in a 3D system with 1D confinement</h1>
+          <h5>Ashton Bradley</h5>
+          
+        </div>
 
-          <h1>Introduction</h1>
+        <h1>Introduction</h1>
 <p>Quenching in 3D reveals the symmetry breaking inherent in the BEC phase transition. As the order parameter grows from thermal fluctuations, small phase coherent domains form locally, a spontaneous breaking of <span class="math">$U(1)$</span> symmetry.</p>
 <p>As simple model of this process, we start with the damped GPE</p>
 <p class="math">\[
@@ -751,7 +748,7 @@ V &#40;generic function with 3 methods&#41;
 
 
 <pre class="output">
-376.710973 seconds &#40;58.12 M allocations: 4.594 GiB, 0.66&#37; gc time&#41;
+1.644992 seconds &#40;4.21 M allocations: 322.860 MiB, 2.85&#37; gc time&#41;
 </pre>
 
 
@@ -792,29 +789,31 @@ V &#40;generic function with 3 methods&#41;
     </span><span class='hljl-k'>return</span><span class='hljl-t'>
 </span><span class='hljl-k'>end</span><span class='hljl-t'>
 
-</span><span class='hljl-n'>p</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>densityfilm</span><span class='hljl-p'>(</span><span class='hljl-n'>sol</span><span class='hljl-p'>,</span><span class='hljl-n'>Nt</span><span class='hljl-p'>,</span><span class='hljl-n'>file</span><span class='hljl-oB'>=</span><span class='hljl-s'>&quot;3dquenchslab.png&quot;</span><span class='hljl-p'>)</span>
+</span><span class='hljl-n'>p</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>densityfilm</span><span class='hljl-p'>(</span><span class='hljl-n'>sol</span><span class='hljl-p'>,</span><span class='hljl-n'>Nt</span><span class='hljl-p'>,</span><span class='hljl-n'>file</span><span class='hljl-oB'>=</span><span class='hljl-s'>&quot;3dquenchslab.gif&quot;</span><span class='hljl-p'>)</span>
 </pre>
 
 
 <pre class="julia-error">
-ERROR: Video type .png not known
+ERROR: program 29 not linked. Error in: 
+/Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/fragment_output.frag or /Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/util.vert or /Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/volume.vert or /Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/volume.frag
+ERROR: One or more attached shaders not successfully compiled
+
 </pre>
 
 
 <p><img src="../../media/3dquenchslab.gif" alt="&#91;animation &#40;see media folder&#41;&#93;" /></p>
 
 
-
-          <HR/>
-          <div class="footer"><p>
-          Published from <a href="3dquenchslab.jmd">3dquenchslab.jmd</a> using
-          <a href="http://github.com/mpastell/Weave.jl">Weave.jl</a>
-           on 2019-12-03.
-          <p></div>
-
-
+        <HR/>
+        <div class="footer">
+          <p>
+            Published from <a href="3dquenchslab.jmd">3dquenchslab.jmd</a>
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.6 on 2020-11-17.
+          </p>
         </div>
       </div>
     </div>
-  </BODY>
+  </div>
+</BODY>
+
 </HTML>

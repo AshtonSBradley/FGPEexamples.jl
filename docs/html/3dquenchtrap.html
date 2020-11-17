@@ -631,7 +631,7 @@ kbd,
 pre,
 samp {
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  font-size: 13px;
+  font-size: 0.9em;
 }
 
 
@@ -646,22 +646,19 @@ img {max-width : 100%}
 div.title {text-align: center;}
 
   </style>
-
-
-
 </HEAD>
-  <BODY>
-    <div class ="container">
-      <div class = "row">
-        <div class = "col-md-12 twelve columns">
 
-          <div class="title">
-            <h1 class="title">Quench in a 3D harmonic trap</h1>
-            <h5>Ashton Bradley</h5>
-            
-          </div>
+<BODY>
+  <div class ="container">
+    <div class = "row">
+      <div class = "col-md-12 twelve columns">
+        <div class="title">
+          <h1 class="title">Quench in a 3D harmonic trap</h1>
+          <h5>Ashton Bradley</h5>
+          
+        </div>
 
-          <h1>Introduction</h1>
+        <h1>Introduction</h1>
 <p>Quenching in 3D reveals the symmetry breaking inherent in the BEC phase transition. As the order parameter grows from thermal fluctuations, small phase coherent domains form locally, a spontaneous breaking of <span class="math">$U(1)$</span> symmetry.</p>
 <p>As simple model of this process, we start with the damped GPE</p>
 <p class="math">\[
@@ -741,7 +738,7 @@ V &#40;generic function with 3 methods&#41;
 
 
 <pre class="output">
-117.794488 seconds &#40;18.20 M allocations: 1.979 GiB, 0.48&#37; gc time&#41;
+1.681697 seconds &#40;4.61 M allocations: 270.073 MiB, 2.46&#37; gc time&#41;
 </pre>
 
 
@@ -785,21 +782,376 @@ V &#40;generic function with 3 methods&#41;
 </pre>
 
 
+<pre class="output">
+1   : #version 410
+2   : 
+3   : 
+4   : struct Nothing&#123; //Nothing type, to encode if some variable doesn&#39;t co
+ntain any data
+5   :     bool _; //empty structs are not allowed
+6   : &#125;;
+7   : in vec3 frag_vert;
+8   : in vec3 o_light_dir;
+9   : 
+10  : uniform sampler3D volumedata;
+11  : 
+12  : uniform sampler1D color_map;
+13  : uniform vec4 color;
+14  : uniform vec2 color_norm;
+15  : 
+16  : uniform float absorption &#61; 1.0;
+17  : uniform vec3 eyeposition;
+18  : 
+19  : uniform vec3 ambient;
+20  : uniform vec3 diffuse;
+21  : uniform vec3 specular;
+22  : uniform float shininess;
+23  : 
+24  : uniform mat4 modelinv;
+25  : uniform int algorithm;
+26  : uniform float isovalue;
+27  : uniform float isorange;
+28  : 
+29  : const float max_distance &#61; 1.3;
+30  : 
+31  : const int num_samples &#61; 200;
+32  : const float step_size &#61; max_distance / float&#40;num_samples&#41;;
+33  : 
+34  : float _normalize&#40;float val, float from, float to&#41;
+35  : &#123;
+36  :     return &#40;val-from&#41; / &#40;to - from&#41;;
+37  : &#125;
+38  : 
+39  : vec4 color_lookup&#40;float intensity, Nothing color_map, Nothing norm, v
+ec4 color&#41;
+40  : &#123;
+41  :     return color;
+42  : &#125;
+43  : 
+44  : vec4 color_lookup&#40;float intensity, samplerBuffer color_ramp, vec2 nor
+m, Nothing color&#41;
+45  : &#123;
+46  :     return texelFetch&#40;color_ramp, int&#40;_normalize&#40;intensity, norm.x, n
+orm.y&#41;*textureSize&#40;color_ramp&#41;&#41;&#41;;
+47  : &#125;
+48  : 
+49  : vec4 color_lookup&#40;float intensity, samplerBuffer color_ramp, Nothing 
+norm, Nothing color&#41;
+50  : &#123;
+51  :     return vec4&#40;0&#41;;  // stub method
+52  : &#125;
+53  : 
+54  : vec4 color_lookup&#40;float intensity, sampler1D color_ramp, vec2 norm, N
+othing color&#41;
+55  : &#123;
+56  :     return texture&#40;color_ramp, _normalize&#40;intensity, norm.x, norm.y&#41;&#41;
+;
+57  : &#125;
+58  : 
+59  : vec4 color_lookup&#40;samplerBuffer colormap, int index&#41;
+60  : &#123;
+61  :     return texelFetch&#40;colormap, index&#41;;
+62  : &#125;
+63  : 
+64  : vec4 color_lookup&#40;sampler1D colormap, int index&#41;
+65  : &#123;
+66  :     return texelFetch&#40;colormap, index, 0&#41;;
+67  : &#125;
+68  : 
+69  : vec4 color_lookup&#40;Nothing colormap, int index&#41;
+70  : &#123;
+71  :     return vec4&#40;0&#41;;
+72  : &#125;
+73  : 
+74  : vec3 gennormal&#40;vec3 uvw, float d&#41;
+75  : &#123;
+76  :     vec3 a, b;
+77  :     // handle normals at edges&#33;
+78  :     if&#40;uvw.x &#43; d &gt;&#61; 1.0&#41;&#123;
+79  :         return vec3&#40;1, 0, 0&#41;;
+80  :     &#125;
+81  :     if&#40;uvw.y &#43; d &gt;&#61; 1.0&#41;&#123;
+82  :         return vec3&#40;0, 1, 0&#41;;
+83  :     &#125;
+84  :     if&#40;uvw.z &#43; d &gt;&#61; 1.0&#41;&#123;
+85  :         return vec3&#40;0, 0, 1&#41;;
+86  :     &#125;
+87  : 
+88  :     if&#40;uvw.x - d &lt;&#61; 0.0&#41;&#123;
+89  :         return vec3&#40;-1, 0, 0&#41;;
+90  :     &#125;
+91  :     if&#40;uvw.y - d &lt;&#61; 0.0&#41;&#123;
+92  :         return vec3&#40;0, -1, 0&#41;;
+93  :     &#125;
+94  :     if&#40;uvw.z - d &lt;&#61; 0.0&#41;&#123;
+95  :         return vec3&#40;0, 0, -1&#41;;
+96  :     &#125;
+97  : 
+98  :     a.x &#61; texture&#40;volumedata, uvw - vec3&#40;d,0.0,0.0&#41;&#41;.r;
+99  :     b.x &#61; texture&#40;volumedata, uvw &#43; vec3&#40;d,0.0,0.0&#41;&#41;.r;
+100 : 
+101 :     a.y &#61; texture&#40;volumedata, uvw - vec3&#40;0.0,d,0.0&#41;&#41;.r;
+102 :     b.y &#61; texture&#40;volumedata, uvw &#43; vec3&#40;0.0,d,0.0&#41;&#41;.r;
+103 : 
+104 :     a.z &#61; texture&#40;volumedata, uvw - vec3&#40;0.0,0.0,d&#41;&#41;.r;
+105 :     b.z &#61; texture&#40;volumedata, uvw &#43; vec3&#40;0.0,0.0,d&#41;&#41;.r;
+106 :     return normalize&#40;a-b&#41;;
+107 : &#125;
+108 : 
+109 : vec3 blinnphong&#40;vec3 N, vec3 V, vec3 L, vec3 color&#41;&#123;
+110 :     float diff_coeff &#61; max&#40;dot&#40;L, N&#41;, 0.0&#41;;
+111 :     // specular coefficient
+112 :     vec3 H &#61; normalize&#40;L &#43; V&#41;;
+113 :     float spec_coeff &#61; pow&#40;max&#40;dot&#40;H, N&#41;, 0.0&#41;, shininess&#41;;
+114 :     // final lighting model
+115 :     return vec3&#40;
+116 :         ambient * color &#43;
+117 :         diffuse * diff_coeff * color &#43;
+118 :         specular * spec_coeff
+119 :     &#41;;
+120 : &#125;
+121 : 
+122 : // Simple random generator found: http://stackoverflow.com/questions/
+4200224/random-noise-functions-for-glsl
+123 : float rand&#40;&#41;&#123;
+124 :     return fract&#40;sin&#40;gl_FragCoord.x * 12.9898 &#43; gl_FragCoord.y * 78.2
+33&#41; * 43758.5453&#41;;
+125 : &#125;
+126 : 
+127 : vec4 volume&#40;vec3 front, vec3 dir&#41;
+128 : &#123;
+129 :     // The per-voxel alpha channel is specified in units of opacity/l
+ength.
+130 :     // If our voxels are not isotropic, then the distance that we tra
+ce through
+131 :     // depends on the direction.
+132 :     vec3  pos &#61; front;
+133 :     float T &#61; 1.0;
+134 :     vec3 Lo &#61; vec3&#40;0.0&#41;;
+135 :     int i &#61; 0;
+136 :     for &#40;i; i &lt; num_samples; &#43;&#43;i&#41; &#123;
+137 :         float intensity &#61; texture&#40;volumedata, pos&#41;.x;
+138 :         vec4 density &#61; color_lookup&#40;intensity, color_map, color_norm,
+ color&#41;;
+139 :         float opacity &#61; step_size * density.a * absorption;
+140 :         T *&#61; 1.0-opacity;
+141 :         if &#40;T &lt;&#61; 0.01&#41;
+142 :             break;
+143 : 
+144 :         Lo &#43;&#61; &#40;T*opacity&#41;*density.rgb;
+145 :         pos &#43;&#61; dir;
+146 :     &#125;
+147 :     return vec4&#40;Lo, 1-T&#41;;
+148 : &#125;
+149 : 
+150 : vec4 additivergba&#40;vec3 front, vec3 dir&#41;
+151 : &#123;
+152 :     vec3 pos &#61; front;
+153 :     vec4 integrated_color &#61; vec4&#40;0., 0., 0., 0.&#41;;
+154 :     int i &#61; 0;
+155 :     for &#40;i; i &lt; num_samples ; &#43;&#43;i&#41; &#123;
+156 :         vec4 density &#61; texture&#40;volumedata, pos&#41;;
+157 :         integrated_color &#61; 1.0 - &#40;1.0 - integrated_color&#41; * &#40;1.0 - de
+nsity&#41;;
+158 :         pos &#43;&#61; dir;
+159 :     &#125;
+160 :     return integrated_color;
+161 : &#125;
+162 : 
+163 : vec4 absorptionrgba&#40;vec3 front, vec3 dir&#41;
+164 : &#123;
+165 :     vec3  pos &#61; front;
+166 :     float T &#61; 1.0;
+167 :     vec3 Lo &#61; vec3&#40;0.0&#41;;
+168 :     int i &#61; 0;
+169 :     for &#40;i; i &lt; num_samples ; &#43;&#43;i&#41; &#123;
+170 :         vec4 density &#61; texture&#40;volumedata, pos&#41;;
+171 :         float opacity &#61; step_size * density.a;
+172 :         T *&#61; 1.0-opacity;
+173 :         if &#40;T &lt;&#61; 0.01&#41;
+174 :             break;
+175 : 
+176 :         Lo &#43;&#61; &#40;T*opacity&#41;*density.rgb;
+177 :         pos &#43;&#61; dir;
+178 :     &#125;
+179 :     return vec4&#40;Lo, 1-T&#41;;
+180 : &#125;
+181 : 
+182 : vec4 volumeindexedrgba&#40;vec3 front, vec3 dir&#41;
+183 : &#123;
+184 :     vec3 pos &#61; front;
+185 :     float T &#61; 1.0;
+186 :     vec3 Lo &#61; vec3&#40;0.0&#41;;
+187 :     int i &#61; 0;
+188 :     for &#40;i; i &lt; num_samples; &#43;&#43;i&#41; &#123;
+189 :         int index &#61; int&#40;texture&#40;volumedata, pos&#41;.x&#41; - 1;
+190 :         vec4 density &#61; color_lookup&#40;color_map, index&#41;;
+191 :         float opacity &#61; step_size*density.a;
+192 :         Lo &#43;&#61; &#40;T*opacity&#41;*density.rgb;
+193 :         T *&#61; 1.0 - opacity;
+194 :         if &#40;T &lt;&#61; 0.01&#41;
+195 :             break;
+196 :         pos &#43;&#61; dir;
+197 :     &#125;
+198 :     return vec4&#40;Lo, 1-T&#41;;
+199 : &#125;
+200 : 
+201 : vec4 contours&#40;vec3 front, vec3 dir&#41;
+202 : &#123;
+203 :     vec3 pos &#61; front;
+204 :     float T &#61; 1.0;
+205 :     vec3 Lo &#61; vec3&#40;0.0&#41;;
+206 :     int i &#61; 0;
+207 :     vec3 camdir &#61; normalize&#40;-dir&#41;;
+208 :     for &#40;i; i &lt; num_samples; &#43;&#43;i&#41; &#123;
+209 :         float intensity &#61; texture&#40;volumedata, pos&#41;.x;
+210 :         vec4 density &#61; color_lookup&#40;intensity, color_map, color_norm,
+ color&#41;;
+211 :         float opacity &#61; density.a;
+212 :         if&#40;opacity &gt; 0.0&#41;&#123;
+213 :             vec3 N &#61; gennormal&#40;pos, step_size&#41;;
+214 :             vec3 L &#61; normalize&#40;o_light_dir - pos&#41;;
+215 :             vec3 opaque &#61; blinnphong&#40;N, camdir, L, density.rgb&#41;;
+216 :             Lo &#43;&#61; &#40;T * opacity&#41; * opaque;
+217 :             T *&#61; 1.0 - opacity;
+218 :             if &#40;T &lt;&#61; 0.01&#41;
+219 :                 break;
+220 :         &#125;
+221 :         pos &#43;&#61; dir;
+222 :     &#125;
+223 :     return vec4&#40;Lo, 1-T&#41;;
+224 : &#125;
+225 : 
+226 : vec4 isosurface&#40;vec3 front, vec3 dir&#41;
+227 : &#123;
+228 :     vec3 pos &#61; front;
+229 :     vec4 c &#61; vec4&#40;0.0&#41;;
+230 :     int i &#61; 0;
+231 :     vec4 diffuse_color &#61; color_lookup&#40;isovalue, color_map, color_norm
+, color&#41;;
+232 :     vec3 camdir &#61; normalize&#40;-dir&#41;;
+233 :     for &#40;i; i &lt; num_samples; &#43;&#43;i&#41;&#123;
+234 :         float density &#61; texture&#40;volumedata, pos&#41;.x;
+235 :         if&#40;abs&#40;density - isovalue&#41; &lt; isorange&#41;&#123;
+236 :             vec3 N &#61; gennormal&#40;pos, step_size&#41;;
+237 :             vec3 L &#61; normalize&#40;o_light_dir - pos&#41;;
+238 :             // back &amp; frontface...
+239 :             vec3 c1 &#61; blinnphong&#40;N, camdir, L, diffuse_color.rgb&#41;;
+240 :             vec3 c2 &#61; blinnphong&#40;-N, camdir, L, diffuse_color.rgb&#41;;
+241 :             c &#61; vec4&#40;0.5*c1 &#43; 0.5*c2, diffuse_color.a&#41;;
+242 :             break;
+243 :         &#125;
+244 :         pos &#43;&#61; dir;
+245 :     &#125;
+246 :     return c;
+247 : &#125;
+248 : 
+249 : vec4 mip&#40;vec3 front, vec3 dir&#41;
+250 : &#123;
+251 :     vec3 pos &#61; front;
+252 :     int i &#61; 0;
+253 :     float maximum &#61; 0.0;
+254 :     for &#40;i; i &lt; num_samples; &#43;&#43;i, pos &#43;&#61; dir&#41;&#123;
+255 :         float density &#61; texture&#40;volumedata, pos&#41;.x;
+256 :         if&#40;maximum &lt; density&#41;
+257 :             maximum &#61; density;
+258 :     &#125;
+259 :     return color_lookup&#40;maximum, color_map, color_norm, color&#41;;
+260 : &#125;
+261 : 
+262 : uniform uint objectid;
+263 : 
+264 : void write2framebuffer&#40;vec4 color, uvec2 id&#41;;
+265 : 
+266 : const float typemax &#61; 100000000000000000000000000000000000000.0;
+267 : 
+268 : bool no_solution&#40;float x&#41;&#123;
+269 :     return x &lt;&#61; 0.0001 || isinf&#40;x&#41; || isnan&#40;x&#41;;
+270 : &#125;
+271 : 
+272 : float min_bigger_0&#40;float a, float b&#41;&#123;
+273 :     bool a_no &#61; no_solution&#40;a&#41;;
+274 :     bool b_no &#61; no_solution&#40;b&#41;;
+275 :     if&#40;a_no &amp;&amp; b_no&#41;&#123;
+276 :         // no solution
+277 :         return typemax;
+278 :     &#125;
+279 :     if&#40;a_no&#41;&#123;
+280 :         return b;
+281 :     &#125;
+282 :     if&#40;b_no&#41;&#123;
+283 :         return a;
+284 :     &#125;
+285 :     return min&#40;a, b&#41;;
+286 : &#125;
+287 : 
+288 : float min_bigger_0&#40;vec3 v1, vec3 v2&#41;&#123;
+289 :     float x &#61; min_bigger_0&#40;v1.x, v2.x&#41;;
+290 :     float y &#61; min_bigger_0&#40;v1.y, v2.y&#41;;
+291 :     float z &#61; min_bigger_0&#40;v1.z, v2.z&#41;;
+292 :     return min&#40;x, min&#40;y, z&#41;&#41;;
+293 : &#125;
+294 : 
+295 : void main&#40;&#41;
+296 : &#123;
+297 :     vec4 color;
+298 :     vec3 eye_unit &#61; vec3&#40;modelinv * vec4&#40;eyeposition, 1&#41;&#41;;
+299 :     vec3 back_position &#61; vec3&#40;modelinv * vec4&#40;frag_vert, 1&#41;&#41;;
+300 :     vec3 dir &#61; normalize&#40;eye_unit - back_position&#41;;
+301 :     // solve back_position &#43; distance * dir &#61;&#61; 1
+302 :     // solve back_position &#43; distance * dir &#61;&#61; 0
+303 :     // to see where it first hits unit cube&#33;
+304 :     vec3 solution_1 &#61; &#40;1.0 - back_position&#41; / dir;
+305 :     vec3 solution_0 &#61; &#40;0.0 - back_position&#41; / dir;
+306 :     float solution &#61; min_bigger_0&#40;solution_1, solution_0&#41;;
+307 : 
+308 :     vec3 start &#61; back_position &#43; solution * dir;
+309 :     vec3 step_in_dir &#61; &#40;back_position - start&#41; / num_samples;
+310 : 
+311 :     float steps &#61; 0.1;
+312 :     // the algorithm numbers correspond to the order in the
+313 :     // RaymarchAlgorithm enum defined in AbstractPlotting types.jl 
+314 :     if&#40;algorithm &#61;&#61; 0&#41;
+315 :         color &#61; isosurface&#40;start, step_in_dir&#41;;
+316 :     else if&#40;algorithm &#61;&#61; 1&#41;
+317 :         color &#61; volume&#40;start, step_in_dir&#41;;
+318 :     else if&#40;algorithm &#61;&#61; 2&#41;
+319 :         color &#61; mip&#40;start, step_in_dir&#41;;
+320 :     else if&#40;algorithm &#61;&#61; 3&#41;
+321 :         color &#61; absorptionrgba&#40;start, step_in_dir&#41;;
+322 :     else if&#40;algorithm &#61;&#61; 4&#41;
+323 :         color &#61; additivergba&#40;start, step_in_dir&#41;;
+324 :     else if&#40;algorithm &#61;&#61; 5&#41;
+325 :         color &#61; volumeindexedrgba&#40;start, step_in_dir&#41;;
+326 :     else
+327 :         color &#61; contours&#40;start, step_in_dir&#41;;
+328 : 
+329 :     write2framebuffer&#40;color, uvec2&#40;objectid, 0&#41;&#41;;
+330 : &#125;
+331 :
+</pre>
+
+<pre class="julia-error">
+ERROR: program 28 not linked. Error in: 
+/Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/fragment_output.frag or /Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/util.vert or /Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/volume.vert or /Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/volume.frag
+ERROR: One or more attached shaders not successfully compiled
+
+</pre>
+
 
 <p><img src="../../media/3dquenchtrap.gif" alt="&#91;animation &#40;see media folder&#41;&#93;" /></p>
 
 
-
-          <HR/>
-          <div class="footer"><p>
-          Published from <a href="3dquenchtrap.jmd">3dquenchtrap.jmd</a> using
-          <a href="http://github.com/mpastell/Weave.jl">Weave.jl</a>
-           on 2019-12-03.
-          <p></div>
-
-
+        <HR/>
+        <div class="footer">
+          <p>
+            Published from <a href="3dquenchtrap.jmd">3dquenchtrap.jmd</a>
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.6 on 2020-11-17.
+          </p>
         </div>
       </div>
     </div>
-  </BODY>
+  </div>
+</BODY>
+
 </HTML>

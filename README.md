@@ -7,9 +7,18 @@ Some of the larger media files are not tracked by this repository. To run them l
 git clone https://github.com/AshtonSBradley/FGPEexamples.jl
 ```
 
-then edit `/src/weaveall.jl` to choose which examples to run (by defaults runs all in `flist`, will take ~15 minutes), and which output to generate (`html` by default, but also `.pdf`, `.ipynb` can be enabled).  
+then edit `flist` in `/src/FGPEexamples.jl` to choose which examples to run (by default will take ~15 minutes), and which output to generate (`html` by default, but also `.pdf`, `.ipynb` can be enabled).  
 
-The chosen output  will be generated in the `docs` directory.
+To run the examples in `flist`, make sure you are in the package directory and do
+
+```julia
+using Pkg, FGPEexamples
+Pkg.pkg"activate ."
+Pkg.pkg"instantiate"
+FGPEexamples.weave_all()
+```
+
+The output  will be created in the `docs` directory.
 
 <details><summary><b>Bright soliton</b></summary>
 

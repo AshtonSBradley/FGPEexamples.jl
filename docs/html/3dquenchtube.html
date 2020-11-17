@@ -631,7 +631,7 @@ kbd,
 pre,
 samp {
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  font-size: 13px;
+  font-size: 0.9em;
 }
 
 
@@ -646,22 +646,19 @@ img {max-width : 100%}
 div.title {text-align: center;}
 
   </style>
-
-
-
 </HEAD>
-  <BODY>
-    <div class ="container">
-      <div class = "row">
-        <div class = "col-md-12 twelve columns">
 
-          <div class="title">
-            <h1 class="title">Quench in a 3D system with 2D confinement</h1>
-            <h5>Ashton Bradley</h5>
-            
-          </div>
+<BODY>
+  <div class ="container">
+    <div class = "row">
+      <div class = "col-md-12 twelve columns">
+        <div class="title">
+          <h1 class="title">Quench in a 3D system with 2D confinement</h1>
+          <h5>Ashton Bradley</h5>
+          
+        </div>
 
-          <h1>Introduction</h1>
+        <h1>Introduction</h1>
 <p>Quenching in 3D reveals the symmetry breaking inherent in the BEC phase transition. As the order parameter grows from thermal fluctuations, small phase coherent domains form locally, a spontaneous breaking of <span class="math">$U(1)$</span> symmetry.</p>
 <p>The resulting defects emerging from the Kibble-Zurek mechanism depend on geometry. In this example we see what happens in an oblate system. Unlike the planar confinement scenario that traps quantum vortices, in 1D the expected defects are dark solitons, and eventually, a persistent current. The persistent current necessarily has zero winding on average as the thermal cloud is stationary in the lab frame.</p>
 <p>As simple model of this process, we start with the damped GPE</p>
@@ -752,7 +749,7 @@ V &#40;generic function with 3 methods&#41;
 
 
 <pre class="output">
-158.148290 seconds &#40;39.92 M allocations: 3.203 GiB, 1.25&#37; gc time&#41;
+1.507997 seconds &#40;4.15 M allocations: 211.621 MiB&#41;
 </pre>
 
 
@@ -797,21 +794,27 @@ V &#40;generic function with 3 methods&#41;
 </pre>
 
 
+<pre class="julia-error">
+ERROR: program 30 not linked. Error in: 
+/Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/fragment_output.frag or /Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/util.vert or /Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/volume.vert or /Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/volume.frag
+ERROR: One or more attached shaders not successfully compiled
+
+</pre>
+
 
 <p><img src="../../media/3dquenchtube.gif" alt="&#91;animation &#40;see media folder&#41;&#93;" /></p>
 
 
-
-          <HR/>
-          <div class="footer"><p>
-          Published from <a href="3dquenchtube.jmd">3dquenchtube.jmd</a> using
-          <a href="http://github.com/mpastell/Weave.jl">Weave.jl</a>
-           on 2019-12-03.
-          <p></div>
-
-
+        <HR/>
+        <div class="footer">
+          <p>
+            Published from <a href="3dquenchtube.jmd">3dquenchtube.jmd</a>
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.6 on 2020-11-17.
+          </p>
         </div>
       </div>
     </div>
-  </BODY>
+  </div>
+</BODY>
+
 </HTML>
