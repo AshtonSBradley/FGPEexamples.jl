@@ -11,13 +11,13 @@ pdf_path = joinpath(source_path,"../docs","pdf")
 notebook_path = joinpath(source_path,"../docs","notebooks")
 
 # flist = ["1dharmonic" "1dbrightsoliton" "2dharmonic" "3dquenchiso" "3dquenchtrap" "3dquenchslab" "3dquenchtube" "jrsoliton" "1dtemporalsoliton"]
-flist = ["2dharmonic"] # to only build this example
+flist = ["1dbrightsoliton"] # to only build this example
 
 function weavedocs(file)
     tmp = joinpath(source_path,file)*".jmd"
     weave(tmp,out_path=html_path,doctype = "md2html")
-    # weave(tmp,out_path=pdf_path,doctype="md2pdf"; template=latexfile)
     # Weave.convert_doc(tmp,joinpath(notebook_path,file)*".ipynb")
+    # weave(tmp,out_path=pdf_path,doctype="md2pdf"; template=latexfile)
 end
 
 function weave_some(flist)
