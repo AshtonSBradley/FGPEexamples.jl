@@ -748,7 +748,8 @@ V &#40;generic function with 3 methods&#41;
 
 
 <pre class="output">
-1.644992 seconds &#40;4.21 M allocations: 322.860 MiB, 2.85&#37; gc time&#41;
+380.789439 seconds &#40;168.26 M allocations: 11.031 GiB, 0.99&#37; gc time, 0.54&#37; 
+compilation time&#41;
 </pre>
 
 
@@ -794,9 +795,8 @@ V &#40;generic function with 3 methods&#41;
 
 
 <pre class="julia-error">
-ERROR: program 29 not linked. Error in: 
-/Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/fragment_output.frag or /Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/util.vert or /Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/volume.vert or /Users/abradley/.julia/packages/GLMakie/Pway1/src/GLVisualize/assets/shader/volume.frag
-ERROR: One or more attached shaders not successfully compiled
+ERROR: ArgumentError: Package Makie not found in current path:
+- Run &#96;import Pkg; Pkg.add&#40;&quot;Makie&quot;&#41;&#96; to install the Makie package.
 
 </pre>
 
@@ -808,7 +808,7 @@ ERROR: One or more attached shaders not successfully compiled
         <div class="footer">
           <p>
             Published from <a href="3dquenchslab.jmd">3dquenchslab.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.6 on 2020-11-17.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.6 on 2021-02-09.
           </p>
         </div>
       </div>

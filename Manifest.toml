@@ -48,6 +48,12 @@ version = "0.5.3"
 [[Artifacts]]
 uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
 
+[[AxisAlgorithms]]
+deps = ["LinearAlgebra", "Random", "SparseArrays", "WoodburyMatrices"]
+git-tree-sha1 = "a4d07a1c313392a77042855df46c5f534076fab9"
+uuid = "13072b0f-2c55-5437-9ae7-d433b7a33950"
+version = "1.0.0"
+
 [[BandedMatrices]]
 deps = ["ArrayLayouts", "FillArrays", "LinearAlgebra", "Random", "SparseArrays"]
 git-tree-sha1 = "aae64a8de62457fd3fd4ecef574a16f678cb4443"
@@ -367,8 +373,8 @@ uuid = "f6369f11-7733-5829-9624-2563aa707210"
 version = "0.10.16"
 
 [[FourierGPE]]
-deps = ["ColorSchemes", "DifferentialEquations", "FFTW", "FileIO", "FillArrays", "JLD2", "LaTeXStrings", "LazyArrays", "LoopVectorization", "PaddedViews", "Parameters", "Pkg", "Plots", "ProgressMeter", "RecursiveArrayTools", "Reexport", "SpecialFunctions", "Test", "Tullio"]
-git-tree-sha1 = "410c605e9c07fc3a548f8fcb23ead00799b92992"
+deps = ["ColorSchemes", "DifferentialEquations", "FFTW", "FileIO", "FillArrays", "JLD2", "LaTeXStrings", "LazyArrays", "LoopVectorization", "PaddedViews", "Parameters", "Pkg", "Plots", "ProgressMeter", "RecursiveArrayTools", "Reexport", "SpecialFunctions", "Test", "Tullio", "VortexDistributions"]
+git-tree-sha1 = "5f9199a26c7ff64fb860092ab254e337e3994cdc"
 repo-rev = "master"
 repo-url = "https://github.com/AshtonSBradley/FourierGPE.jl.git"
 uuid = "f013a474-557c-11e9-3596-438edcad9d97"
@@ -497,6 +503,12 @@ version = "2018.0.3+2"
 [[InteractiveUtils]]
 deps = ["Markdown"]
 uuid = "b77e0a4c-d291-57a0-90e8-8db25a27a240"
+
+[[Interpolations]]
+deps = ["AxisAlgorithms", "LinearAlgebra", "OffsetArrays", "Random", "Ratios", "SharedArrays", "SparseArrays", "StaticArrays", "WoodburyMatrices"]
+git-tree-sha1 = "eb1dd6d5b2275faaaa18533e0fc5f9171cec25fa"
+uuid = "a98d9a8b-a2ab-59e6-89dd-64a1c18fca59"
+version = "0.13.1"
 
 [[IterTools]]
 git-tree-sha1 = "05110a2ab1fc5f932622ffea2a003221f4782c18"
@@ -931,6 +943,11 @@ git-tree-sha1 = "441e6fc35597524ada7f85e13df1f4e10137d16f"
 uuid = "e6cf234a-135c-5ec9-84dd-332b85af5143"
 version = "1.4.0"
 
+[[Ratios]]
+git-tree-sha1 = "37d210f612d70f3f7d57d488cb3b6eff56ad4e41"
+uuid = "c84ed2f1-dad5-54f0-aa8e-dbefe2724439"
+version = "0.4.0"
+
 [[RecipesBase]]
 git-tree-sha1 = "b3fb709f3c97bfc6e948be68beeecb55a0b340ae"
 uuid = "3cdcf5f2-1ef4-517c-9805-6587b60abb01"
@@ -1040,6 +1057,12 @@ deps = ["InteractiveUtils", "MacroTools"]
 git-tree-sha1 = "daf7aec3fe3acb2131388f93a4c409b8c7f62226"
 uuid = "699a6c99-e7fa-54fc-8d76-47d257e15c1d"
 version = "0.9.3"
+
+[[SimpleWeightedGraphs]]
+deps = ["LightGraphs", "LinearAlgebra", "Markdown", "SparseArrays", "Test"]
+git-tree-sha1 = "f3f7396c2d5e9d4752357894889a87340262f904"
+uuid = "47aef6b3-ad0c-573a-a1e2-d07658019622"
+version = "1.1.1"
 
 [[Sockets]]
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
@@ -1174,6 +1197,12 @@ git-tree-sha1 = "3318281dd4121ecf9713ce1383b9ace7d7476fdd"
 uuid = "a759f4b9-e2f1-59dc-863e-4aeb61b1ea8f"
 version = "0.5.7"
 
+[[ToeplitzMatrices]]
+deps = ["AbstractFFTs", "FFTW", "LinearAlgebra", "StatsBase"]
+git-tree-sha1 = "39731ea29652305b1eeb7ab0d1085533db307191"
+uuid = "c751599d-da0a-543b-9d20-d0a503d91d24"
+version = "0.6.3"
+
 [[TranscodingStreams]]
 deps = ["Random", "Test"]
 git-tree-sha1 = "7c53c35547de1c5b9d46a4797cf6d8253807108c"
@@ -1232,6 +1261,14 @@ git-tree-sha1 = "b9b450c99a3ca1cc1c6836f560d8d887bcbe356e"
 uuid = "19fa3120-7c27-5ec5-8db8-b0b0aa330d6f"
 version = "0.1.2"
 
+[[VortexDistributions]]
+deps = ["FFTW", "FileIO", "Interpolations", "JLD2", "LightGraphs", "LinearAlgebra", "Parameters", "Plots", "ProgressMeter", "Reexport", "SimpleWeightedGraphs", "SparseArrays", "SpecialFunctions", "Test", "ToeplitzMatrices"]
+git-tree-sha1 = "100c6478152af731a642b65bc2d40129a5b99188"
+repo-rev = "master"
+repo-url = "https://github.com/AshtonSBradley/VortexDistributions.jl.git"
+uuid = "b688e990-d167-11e8-1f13-43a2532b2fa8"
+version = "0.0.0"
+
 [[Wayland_jll]]
 deps = ["Artifacts", "Expat_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Pkg", "XML2_jll"]
 git-tree-sha1 = "dc643a9b774da1c2781413fd7b6dcd2c56bb8056"
@@ -1249,6 +1286,12 @@ deps = ["Base64", "Dates", "Highlights", "JSON", "Markdown", "Mustache", "Pkg", 
 git-tree-sha1 = "484f9c3b6551c005d37e860f1be167a96afbd3d8"
 uuid = "44d3d7a6-8a23-5bf8-98c5-b353f8df5ec9"
 version = "0.10.6"
+
+[[WoodburyMatrices]]
+deps = ["LinearAlgebra", "SparseArrays"]
+git-tree-sha1 = "59e2ad8fd1591ea019a5259bd012d7aee15f995c"
+uuid = "efce3f68-66dc-5838-9240-27a6d6f5f9b6"
+version = "0.5.3"
 
 [[XML2_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libiconv_jll", "Pkg", "Zlib_jll"]

@@ -6,7 +6,7 @@ author: Ashton Bradley
 # Prelude
 First, let's load some packages and set plot defaults.
 ```julia
-using Pkg, Plots, LaTeXStrings
+using Plots, LaTeXStrings
 gr(legend=false,titlefontsize=12,size=(500,300),colorbar=false,grid=false)
 using FourierGPE
 ```
@@ -89,6 +89,7 @@ Now we have everything we need to evolve in k-space
 @time sol = runsim(sim);
 ```
 ## Plot the solution
+We plot the density of atoms, and the _unwrapped_ phase angle of the wavefunction.
 ```julia
 showpsi(x,xspace(sol[end],sim))
 ```
@@ -101,7 +102,7 @@ anim = @animate for i=1:Nt-8
 end
 
 filename = "brightsoliton.gif"
-gif(anim,joinpath(@__DIR__,"media",filename),fps = 25);
+gif(anim,joinpath(@__DIR__,"../media",filename),fps = 25);
 ```
 
 ![[animation (see media folder)]](../../media/brightsoliton.gif)

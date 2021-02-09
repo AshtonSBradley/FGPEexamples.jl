@@ -681,6 +681,10 @@ L\psi\equiv \left(-\frac{\hbar^2\nabla^2}{2m}+g|\psi|^2\right)\psi
 </pre>
 
 
+<pre class="julia-error">
+ERROR: Unknown key: transpose
+</pre>
+
 
 <p>Now load <code>FourierGPE</code></p>
 
@@ -769,7 +773,9 @@ L\psi\equiv \left(-\frac{\hbar^2\nabla^2}{2m}+g|\psi|^2\right)\psi
 
 
 <pre class="julia-error">
-ERROR: BoundsError: attempt to access 1-element Array&#123;Array&#123;Complex&#123;Float64&#125;,3&#125;,1&#125; at index &#91;2&#93;
+ERROR: ArgumentError: Package Makie not found in current path:
+- Run &#96;import Pkg; Pkg.add&#40;&quot;Makie&quot;&#41;&#96; to install the Makie package.
+
 </pre>
 
 
@@ -781,7 +787,7 @@ ERROR: BoundsError: attempt to access 1-element Array&#123;Array&#123;Complex&#1
         <div class="footer">
           <p>
             Published from <a href="3dquenchiso.jmd">3dquenchiso.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.6 on 2020-11-17.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.6 on 2021-02-09.
           </p>
         </div>
       </div>

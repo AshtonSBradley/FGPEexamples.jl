@@ -28,7 +28,7 @@ and noncondensate atoms, inducing condensate growth.
 First, we load some useful packages, setting defaults for `Plots`.
 ```julia
 using Plots, LaTeXStrings
-gr(titlefontsize=12,size=(500,300),transpose=true,colorbar=false)
+gr(titlefontsize=12,size=(500,300),colorbar=false);
 ```
 Now load `FourierGPE`
 ```julia
@@ -49,7 +49,7 @@ sim = Sim(L,N)
 # Declare the potential
 ```julia
 import FourierGPE.V
-V(x,y,t)::Float64 = 0.5*(x^2 + y^2)
+V(x,y,t) = 0.5*(x^2 + y^2)
 ```
 
 # Thomas-Fermi initial state
@@ -121,7 +121,7 @@ Let's evolve for one period of Hamiltonian dynamics, as predicted by the Thomas-
 tf = Tv
 t = LinRange(ti,tf,Nt)
 ϕi = kspace(ψv,sim)
-@pack_Sim! sim; # write over previous sim  and reuse
+@pack_Sim! sim; # collect up new parameters
 ```
 # Evolve in k space
 ```julia
@@ -133,22 +133,21 @@ Pull out a state after some evolution
 ψf = xspace(ϕf,sim)
 showpsi(x,y,ψf)
 ```
-We can trim the last few frames to show one orbit
+We can trim the last few frames to show one closed orbit:
 ```julia
 anim = @animate for i=1:Nt-6
     ψ = xspace(solv[i],sim)
     showpsi(x,y,ψ)
 end
 filename = "vortex.gif"
-gif(anim,joinpath(@__DIR__,"media",filename),fps=30);
+gif(anim,joinpath(@__DIR__,"../media",filename),fps=30);
 ```
 ![[animation (see media folder)]](../../media/vortex.gif)
 
 The simulation gives a precession frequency within about $\sim 10\%$ of the analytical result.
 
 This last simulation was in real time ($\gamma=0$), and we see there is very little additional
-exciation imposed by imprinting and evolving the vortex. This provides a sanity check of both the
-time dynamics, and the vortex imprinting procedure. The latter used the numerically exact vortex core
-for the specified local healing length. The vortex phase is the ideal phase for a vortex in an infinite system
-with constant density specified at the core, and will cause some additional superfluid motion as the
-BEC responds to this initial state.
+excitation imposed by imprinting and evolving the vortex. This provides a sanity check of both the
+time dynamics of the Hamiltonian GPE, and the vortex imprinting procedure. The latter used the numerically exact vortex core
+scaled by the healing length at the density of imprinting. The vortex phase profile is the ideal phase for a vortex in an infinite system, and will cause some additional superfluid motion as the
+BEC responds to this initial state with additional boundary conditions imposed by the trap and the background parabolic density profile.

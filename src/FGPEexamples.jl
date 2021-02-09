@@ -10,8 +10,8 @@ html_path = joinpath(source_path,"../docs","html")
 pdf_path = joinpath(source_path,"../docs","pdf")
 notebook_path = joinpath(source_path,"../docs","notebooks")
 
-flist = ["1dharmonic" "1dbrightsoliton" "2dharmonic" "3dquenchiso" "3dquenchtrap" "3dquenchslab" "3dquenchtube" "jrsoliton" "1dtemporalsoliton"]
-#flist = ["1dtemporalsoliton"] # to only build this example
+# flist = ["1dharmonic" "1dbrightsoliton" "2dharmonic" "3dquenchiso" "3dquenchtrap" "3dquenchslab" "3dquenchtube" "jrsoliton" "1dtemporalsoliton"]
+flist = ["2dharmonic"] # to only build this example
 
 function weavedocs(file)
     tmp = joinpath(source_path,file)*".jmd"
