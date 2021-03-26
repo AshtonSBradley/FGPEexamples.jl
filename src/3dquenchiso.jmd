@@ -29,7 +29,7 @@ and $\mu$ represents the chemical potential of the reservoir that $\psi$ will ev
 First, we load some useful packages.
 ```julia
 using Plots, LaTeXStrings
-gr(titlefontsize=12,size=(500,300),transpose=true,colorbar=false);
+gr(titlefontsize=12,size=(500,300),colorbar=false);
 ```
 Now load `FourierGPE`
 ```julia

@@ -26,7 +26,7 @@ where all quantities are now dimensionless.
 First, we load some useful packages, and set up defaults for `Plots`.
 ```julia
 using Plots, LaTeXStrings
-gr(fmt="png",legend=false,titlefontsize=12,size=(500,200),grid=false,transpose=true,colorbar=false);
+gr(fmt="png",legend=false,titlefontsize=12,size=(500,200),grid=false,colorbar=false);
 ```
 Now load `FourierGPE`
 ```julia

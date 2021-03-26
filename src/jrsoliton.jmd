@@ -29,7 +29,7 @@ and noncondensate atoms, inducing condensate growth.
 First, we load some useful packages, setting defaults for `Plots`.
 ```julia
 using Plots, LaTeXStrings, Pkg, Revise
-gr(titlefontsize=12,size=(500,300),transpose=true,colorbar=false);
+gr(titlefontsize=12,size=(500,300),colorbar=false);
 ```
 Now load `FourierGPE`
 ```julia

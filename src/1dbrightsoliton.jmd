@@ -9,6 +9,7 @@ First, let's load some packages and set plot defaults.
 using Plots, LaTeXStrings
 gr(legend=false,titlefontsize=12,size=(500,300),colorbar=false,grid=false)
 using FourierGPE
+import VortexDistributions:unwrap
 ```
 # Gross-Pitaevskii equation
 We are going to solve the Gross-Pitaevskii equation
@@ -91,10 +92,10 @@ Now we have everything we need to evolve in k-space
 ## Plot the solution
 We plot the density of atoms, and the phase after removing the Galilean boost.
 ```julia
-ψp = xspace(sol[end],sim).*exp.(-im*us*x)
+ψp = xspace(sol[end],sim).*exp.(-im*us*x) # drop translation factor for plot
 p1 = plot(x,abs2.(ψp))
 xlabel!(L"x");ylabel!(L"|\psi|^2")
-p2 = plot(x,angle.(ψp))
+p2 = plot(x,unwrap(angle.(ψp)))
 xlabel!(L"x");ylabel!(L"\textrm{phase} (\psi)")
 p = plot(p1,p2,layout=(2,1),size=(600,400))
 ```
