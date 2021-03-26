@@ -1,6 +1,6 @@
 ---
 title: Motion of a Jones-Roberts soliton in a homogeneous BEC
-author: Sukla Pal
+author: Sukla Pal, Ashton Bradley
 ---
 
 # Introduction
@@ -28,7 +28,7 @@ and noncondensate atoms, inducing condensate growth.
 # Loading the package
 First, we load some useful packages, setting defaults for `Plots`.
 ```julia
-using Plots, LaTeXStrings, Pkg, Revise
+using Plots, LaTeXStrings, Pkg 
 gr(titlefontsize=12,size=(500,300),colorbar=false);
 ```
 Now load `FourierGPE`
@@ -59,7 +59,7 @@ sim = Sim(L,N)
 # Declare the potential
 ```julia
 import FourierGPE.V
-V(x,y,t)::Float64 = zero(x*y);
+V(x,y,t) = zero(x*y);
 ```
 
 # Thomas-Fermi initial state
@@ -86,10 +86,10 @@ ground state of homogeneous system
 ϕg = sol[end]
 ψg = xspace(ϕg,sim)
 ψv = copy(ψg);
-p1=heatmap(x,y,abs2.(ψv),aspectratio=1,colorbar = true, xlim=(-200,200),ylim=(-100,100))
+p1=heatmap(x,y,abs2.(ψv'),aspectratio=1,colorbar = true, xlims=(-200,200),ylims=(-100,100))
 title!(L"|\psi|^2")
 xlabel!(L"x/\xi"); ylabel!(L"y/\xi")
-p2=heatmap(x,y,angle.(ψv),aspectratio=1,colorbar = true, xlim=(-200,200),ylim=(-100,100))
+p2=heatmap(x,y,angle.(ψv'),aspectratio=1,colorbar = true, xlims=(-200,200),ylims=(-100,100))
 title!("Phase")
 xlabel!(L"x/\xi"); ylabel!(L"y/\xi")
 plot(p1,p2,size=(1000,300))
@@ -98,8 +98,8 @@ plot(p1,p2,size=(1000,300))
 We imprint the density and phase of a JR-soliton at origin using the [analytical solution](https://journals.aps.org/pra/pdf/10.1103/PhysRevA.77.045601)
 
 ```julia
-ρs(x,y)::Float64 = 4*((1.5+((ϵ^2*y)^2)-(ϵ*(x))^2)/(1.5+((ϵ^2*y)^2)+(ϵ*(x))^2)^2);
-ϕs(x,y)::Float64 = 4*ϵ*(x)/(1.5+((ϵ^2*y)^2)+(ϵ*(x))^2);
+ρs(x,y) = 4*((1.5+((ϵ^2*y)^2)-(ϵ*x)^2)/(1.5+((ϵ^2*y)^2)+(ϵ*x)^2)^2)
+ϕs(x,y) = 4*ϵ*x/(1.5+((ϵ^2*y)^2)+(ϵ*x)^2)
 ```
 We need to choose the velocity of the JRS close to sound velocity $c$ for which we select one of the $k_x$ value of the problem.
 For this example we choose the soliton velocity $v_s \approx 0.85c$. The perturbation parameter
@@ -117,22 +117,21 @@ into lab frame (Frame of damped GPE we are solving)
 
 ```julia
 S = -1/sqrt(2)*ϕs.(x,y');
-ψjr =  ψv.*sqrt.(ones(size(x)[1],size(y)[1])-ϵ2*ρs.(x,y')).*exp.(ϵ*S*im);
-ψjr_lab = ψjr.*exp.(im*vs*x);
+ψjr =  @. ψv*sqrt(one(S) -ϵ2*ρs(x,y'))*exp(ϵ*S*im)
+ψjr_lab = @. ψjr*exp(im*vs*x)
 ψv = copy(ψjr_lab);
 ```
 The imprinted solution looks like
-
 ```julia
-p1 = contour(x.*ϵ, y.*ϵ2, abs2.(ψjr),fill=true,c=c1,aspectratio = 1.0, colorbar = true,xlim = (-10,10), ylim = (-10,10),title=L"|\psi(x,y)|^2")
+p1 = contour(x.*ϵ, y.*ϵ2, abs2.(ψjr'),fill=true,c=c1,aspectratio = 1.0, colorbar = true,xlim = (-10,10), ylim = (-10,10),title=L"|\psi(x,y)|^2")
 xlabel!(L"x/\epsilon");ylabel!(L"y/\epsilon^2")
-p2 = contour(x.*ϵ, y.*ϵ2, angle.(ψjr),fill=true,c=c2,aspectratio = 1.0, colorbar = true,xlim = (-10,10), ylim = (-10,10),title=L"S(x,y)")
-plot(p1,p2,size=(1000,300))
+p2 = contour(x.*ϵ, y.*ϵ2, angle.(ψjr'),fill=true,c=c2,aspectratio = 1.0, colorbar = true,xlim = (-10,10), ylim = (-10,10),title=L"S(x,y)")
+plot(p1,p2,size=(1000,400))
 ```
 # Imprinted ground state density profile
 The ground state after imprinting
 ```julia
-heatmap(x,y,abs2.(ψjr), aspectratio = 1, colorbar = true, ylim = (-100,100))
+heatmap(x,y,abs2.(ψjr'), aspectratio = 1, colorbar = true, ylim = (-100,100))
 ```
 # Set simulation parameters
 Let's evolve the solution according to Hamiltonian dynamics for long time:
@@ -143,7 +142,7 @@ Nt = 200
 t = LinRange(ti,tf,Nt)
 ϕi = kspace(ψv,sim)
 reltol = 1e-7
-alg = DP5()
+#alg = DP5()
 @pack_Sim! sim; # write over previous sim  and reuse
 ```
 # Evolve in k space
@@ -154,7 +153,7 @@ We construct a function for better visuatlisation of the problem
 
 ```julia
 function showJR(x,y,ψ)
-    p1 = heatmap(x,y,abs2.(ψ),aspectratio=1,colorbar = true,clim = (), xlim = (-200,200), ylim=(-100,100))
+    p1 = heatmap(x,y,abs2.(ψ'),aspectratio=1,colorbar = true,xlims = (-200,200), ylims=(-100,100))
     xlabel!(L"x/\xi");ylabel!(L"y/\xi")
     title!(L"|\psi|^2\xi^2")
     p = plot(p1,size=(600,300))
@@ -175,7 +174,7 @@ anim = @animate for i=1:Nt;
 end;
 ```
 and save the animation to the [media folder]
-```julia
+```julia;eval=false
 filename = "jrsoliton.gif";
 gif(anim,joinpath(@__DIR__,"media",filename),fps=20);
 ```

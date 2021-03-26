@@ -11,7 +11,7 @@ pdf_path = joinpath(source_path,"../docs","pdf")
 notebook_path = joinpath(source_path,"../docs","notebooks")
 
 # flist = ["1dharmonic" "1dbrightsoliton" "2dharmonic" "3dquenchiso" "3dquenchtrap" "3dquenchslab" "3dquenchtube" "jrsoliton" "1dtemporalsoliton"]
-flist = ["1dbrightsoliton"] # to only build this example
+flist = ["jrsoliton"] # to only build this example
 
 function weavedocs(file)
     tmp = joinpath(source_path,file)*".jmd"
